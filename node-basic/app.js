@@ -1,15 +1,14 @@
 
- //import helpers
- const {sum,sub} = require('./helpers/helpers.js')
- //import http to make requests and get answers
- const http = require('http')
- 
- const server = http.createServer((req,res)=>{
-     res.end('Hello world!!! serve inited...')
- })
-    
- server.listen(2522)
+// const express =  require('express');
 
- console.log(sum(10,5))
- console.log(sub(25,22))
+// const app = express()
 
+// app.get('/', (req,res) => {
+//     res.send('Hello world !!!')
+// })
+
+// app.listen('2522')
+
+const fs = require('fs');
+
+fs.watch('test.txt', (response) => console.log(response))
