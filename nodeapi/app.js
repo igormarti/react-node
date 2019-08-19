@@ -2,6 +2,8 @@ const express = require('express')
 
 const app = express()
 const morgan = require('morgan')
+const fs = require("fs")
+const path = require('path')
 
 //Brings route
 const { postRoute } = require('./route/post')
@@ -10,7 +12,9 @@ const middleware = (req,res,next) => {
     next()
 }
 
-app.use(morgan("dev"))
+app.use(morgan("common", {
+    stream: fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'})
+}))
 app.use(middleware)
 app.get('/',postRoute)
 
