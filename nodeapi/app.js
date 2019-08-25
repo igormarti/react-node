@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const fs = require("fs")
 const path = require('path')
 const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
 
 //config dotenv
 dotenv.config()
@@ -15,6 +16,8 @@ mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true})
 mongoose.connection.on('error',err=>{
     console.log(`DB connection error ${err}`)
 })
+//body parser
+app.use(bodyParser.json())
 //Brings route
 const  getPosts  = require('./route/post')
 //Save all requests 
