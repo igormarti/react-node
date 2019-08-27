@@ -6,6 +6,7 @@ const fs = require("fs")
 const path = require('path')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
+const expressValidator = require('express-validator')
 
 //config dotenv
 dotenv.config()
@@ -16,14 +17,17 @@ mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true})
 mongoose.connection.on('error',err=>{
     console.log(`DB connection error ${err}`)
 })
+
 //body parser
 app.use(bodyParser.json())
 //Brings route
-const  getPosts  = require('./route/post')
+const getPosts = require('./route/post')
 //Save all requests 
 app.use(morgan("common", {
     stream: fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'})
 }))
+//Package to validation
+app.use(expressValidator())
 //Middleware of the post routers 
 app.use("/",getPosts)
 //Get port
