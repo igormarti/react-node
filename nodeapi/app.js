@@ -21,7 +21,8 @@ mongoose.connection.on('error',err=>{
 //body parser
 app.use(bodyParser.json())
 //Brings route
-const getPosts = require('./route/post')
+const routePosts = require('./route/post')
+const routeUsers = require('./route/user')
 //Save all requests 
 app.use(morgan("common", {
     stream: fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'})
@@ -29,7 +30,8 @@ app.use(morgan("common", {
 //Package to validation
 app.use(expressValidator())
 //Middleware of the post routers 
-app.use("/",getPosts)
+app.use("/",routePosts)
+app.use("/",routeUsers)
 //Get port
 const port = process.env.PORT || 2222
 app.listen(port, () => {
