@@ -1,9 +1,10 @@
 const express = require('express')
-const {singup} = require('../controller/user')
+const {singup,singin} = require('../controller/user')
 const router = express.Router()
-// const validator = require('../validator/post')
+const validator = require('../validator/user')
 
-router.post("/singup",singup)
+router.post("/singup",validator.createSingUpValidation,singup)
+router.post('/singin',validator.createSingInValidation,singin)
 
 
 module.exports = router;

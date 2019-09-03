@@ -6,6 +6,7 @@ const fs = require("fs")
 const path = require('path')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
 
 //config dotenv
@@ -20,6 +21,8 @@ mongoose.connection.on('error',err=>{
 
 //body parser
 app.use(bodyParser.json())
+//Cookie parser Middleware
+app.use(cookieParser())
 //Brings route
 const routePosts = require('./route/post')
 const routeUsers = require('./route/user')
@@ -29,7 +32,7 @@ app.use(morgan("common", {
 }))
 //Package to validation
 app.use(expressValidator())
-//Middleware of the post routers 
+//Middleware of the routers 
 app.use("/",routePosts)
 app.use("/",routeUsers)
 //Get port

@@ -41,6 +41,9 @@ userSchema.virtual('password')
 
 //method
 userSchema.methods = {
+    authenticate:function(pass){
+        return this.encryptPassword(pass)===this.hashed_password
+    },
     encryptPassword:function(password){
         if(!password)return""
         try{
