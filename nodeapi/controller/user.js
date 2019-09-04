@@ -2,7 +2,7 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
-exports.singup = async (req,res)=>{
+exports.signup = async (req,res)=>{
     const userExist = await User.findOne({email:req.body.email})
     if(userExist) return res.status(403).json({error:'User already exists'})
 
@@ -11,7 +11,7 @@ exports.singup = async (req,res)=>{
     return res.status(200).json('Singup success! login please.')
 }
 
-exports.singin = (req,res)=>{
+exports.signin = (req,res)=>{
     //Destruturing the object body
     const {email,password} = req.body
     //find user based in email
@@ -37,10 +37,20 @@ exports.singin = (req,res)=>{
         //Destruturing user
         const {_id,name} = user
         //Returning user informations
-        res.status(200).json({
+        return res.status(200).json({
             token,
             user:{_id,name,email}
         })
     })
-
 }
+
+exports.signout = (req,res)=>{
+    //Clear cookie token
+    res.clearCookie("t")
+    //return success 
+    return res.status(200).json({
+        message:'Signout success'
+    })
+}
+
+
