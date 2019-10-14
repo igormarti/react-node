@@ -15,6 +15,10 @@ exports.createPosts = (req,res) => {
     const post = new Post(req.body)
     post.save().then(result=>{
         res.status(200).json({post:result})
+    },err=>{
+        res.status(401).json({err:err})
+    }).catch((err)=>{
+        res.status(401).json({err:err})
     })
     
 }
