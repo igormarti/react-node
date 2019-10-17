@@ -25,7 +25,7 @@ exports.signin = (req,res)=>{
         //if found user
         //Authenticate with method of the user model
         if(!user.authenticate(password)){
-            res.status(401).json({
+            return res.status(401).json({
                 error:"Email and password d'ont match"
             })
         }
@@ -53,4 +53,26 @@ exports.signout = (req,res)=>{
     })
 }
 
+exports.userById = (req,res,next,id)=>{
 
+    User.findById(id).exec((err,user)=>{
+
+        if(err || !user){
+            return res.status(400).json({error:'User not found'})
+        }
+
+        req.profile = user
+        next()
+    })
+}
+
+exports.allUsers = (req,res) =>{
+
+    User.find((err,users)=>{
+        if(err){
+            return res.status(400).json({error:err})
+        }
+
+        return res.json({users})
+    }).select('name email updated_at created_at')
+}
