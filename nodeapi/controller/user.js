@@ -1,6 +1,7 @@
 
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const _ = require('lodash')
 
 exports.signup = async (req,res)=>{
     const userExist = await User.findOne({email:req.body.email})
@@ -83,3 +84,37 @@ exports.getUser = (req,res) =>{
 
     return res.json(req.profile);
 }
+
+exports.updateUser = (req,res,next) => {
+
+    let user = req.profile
+    user = _.extend(user,req.body)
+    user.updated = Date.now()
+    user.save(err=>{
+        if(err){
+            res.status(400).json({
+                error:'Error try update user.'
+            })
+        }
+
+        user.hashed_password = undefined
+        user.salt = undefined
+        res.json({user})
+    })
+
+}
+
+exports.deleteUser = (req,res,next) => {
+    let user = req.profile
+    user.remove((err,user)=>{
+        if(err){
+            res.status(400).json({
+                error:'Error try remove user '+user.name
+            })
+        }
+
+        user.hashed_password = undefined
+        user.salt = undefined
+        res.json({user,'msg':"User "+user.name+" was deleted with success"})
+    })
+} 
