@@ -6,7 +6,7 @@ const validator = require('../validator/post')
 const {HasPermission} = require('../middleware/auth')
 
 router.get("/",HasPermission,getPosts)
-router.post("/posts", HasPermission,validator.createPostValidation,createPosts)
+router.post("/posts/new/:userById", HasPermission,validator.createPostValidation,createPosts)
 
 router.param('userId',userById)
 
