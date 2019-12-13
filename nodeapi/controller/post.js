@@ -81,3 +81,18 @@ exports.createPosts = (req,res,next) => {
     })
     
 }
+
+exports.deletePost = (req,res)=>{
+    let post = req.post;
+    post.remove((err,post)=>{
+        if(err){
+            return res.status(400).json({
+                error:err
+            })
+        }
+
+        res.json({
+            msg:'Post deleted successfully'
+        })
+    })
+}
