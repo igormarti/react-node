@@ -89,7 +89,7 @@ exports.updateUser = (req,res,next) => {
 
     let user = req.profile
     user = _.extend(user,req.body)
-    user.updated = Date.now()
+    user.updated_at = Date.now()
     user.save(err=>{
         if(err){
             res.status(400).json({
