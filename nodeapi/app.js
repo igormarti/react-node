@@ -12,7 +12,7 @@ const err = require('./middleware/errHandle')
 const cors = require('cors')
 
 //config dotenv
-dotenv.config()
+dotenv.config({path:process.env.NODE_ENV === 'dev'?'.env.dev':'.env'})
 //connecting db mogoose
 mongoose.connect(process.env.MONGO_URILOCAL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => { console.log('DB connected succefully') })

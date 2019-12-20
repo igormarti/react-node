@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "up": "nodemon app.js"
+    "up": "NODE_ENV=pro nodemon app.js",
+    "dev":"NODE_ENV=dev nodemon app.js"
   },
   "author": "Igor Martins",
   "license": "ISC",
