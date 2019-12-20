@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
 const err = require('./middleware/errHandle')
+const cors = require('cors')
 
 //config dotenv
 dotenv.config()
@@ -33,10 +34,22 @@ app.use(morgan("common", {
 }))
 //Package to validation
 app.use(expressValidator())
+//Cors to allow connect client-side and backend 
+app.use(cors())
 //Middleware of the routers 
 app.use("/", routePosts)
 app.use("/", routeUsers)
 app.use(err.ErrorHandle)
+//Get Api Documentation 
+app.get('/doc',(req,res)=>{
+    fs.readFile('docs/docApi.json',(err,content)=>{
+        if(err){
+            res.status(401).json({error:err})
+        }
+        let contentJson = JSON.parse(content)
+        res.json(contentJson)
+    })
+})
 //Get port
 const port = process.env.PORT || 2222
 app.listen(port, () => {
