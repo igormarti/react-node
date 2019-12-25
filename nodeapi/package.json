@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "up": "NODE_ENV=pro nodemon app.js",
-    "dev":"NODE_ENV=dev nodemon app.js"
+    "dev": "NODE_ENV=dev nodemon app.js",
+    "dev2": "nodemon app.js"
   },
   "author": "Igor Martins",
   "license": "ISC",
