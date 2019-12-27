@@ -10,7 +10,7 @@ class Loading extends Component {
     render(){
 
         return(
-            <h2>{this.state.message}</h2>
+            <h3>{this.state.message}</h3>
         )
 
     }

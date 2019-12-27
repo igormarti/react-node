@@ -20,9 +20,7 @@ class App extends Component {
       axios('https://api.randomuser.me/?nat=BR&results=5').then((res)=>{
           this.setState({loading:false})
           this.setState({users:[...res.data.results,...this.state.users]})
-      }).catch(err=>{
-          this.setState({error:{err:true,msg:err}})
-      })
+      },err=> this.setState({error:{err:true,msg:err}}))
 
     }
 
@@ -41,8 +39,7 @@ class App extends Component {
                     </form>   
                   </div>
                   {
-
-                    (!this.state.error.err?
+                      
                         (!this.state.loading? 
                             this.state.users.map((user,index)=>
                               <div key={index} >
@@ -56,10 +53,6 @@ class App extends Component {
                             )
                         :  <Loading message="Wait a moment..." />
                         )
-
-                    :`error:${this.state.error.msg}`
-
-                    )
 
                     }  
                     
