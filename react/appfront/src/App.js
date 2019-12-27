@@ -11,12 +11,12 @@ class App extends Component {
         this.loadingUsers = this.loadingUsers.bind(this)
     }
 
-    componentWillMount(){
+    componentDidMount(){
         this.getUsers()
     }
 
     getUsers(){
-
+      
       axios('https://api.randomuser.me/?nat=BR&results=5').then((res)=>{
           this.setState({loading:false})
           this.setState({users:[...res.data.results,...this.state.users]})
@@ -29,36 +29,32 @@ class App extends Component {
     }
 
     render(){
+       
+        const eleUser = 
+                  ( <div className="App">
+                        <div>
+                          <input type="button" onClick={this.loadingUsers} value="Load users" ></input>
+                        </div>
+                        {
+                          this.state.users.map((user,index)=>
+                            <div key={index} >
+                                <h3>{user.name.first}</h3>
+                                <p>
+                                  {user.email}<br/>
+                                  {user.cell}
+                                </p>
+                                <hr/>
+                            </div>
+                          )
+                        }  
+           
+                    </div> )
 
-          return (
-            
-            <div className="App">
-                 <div>
-                    <form onSubmit={this.loadingUsers} >
-                        <input type="submit" value="Load users" ></input>
-                    </form>   
-                  </div>
-                  {
-                      
-                        (!this.state.loading? 
-                            this.state.users.map((user,index)=>
-                              <div key={index} >
-                                  <h3>{user.name.first}</h3>
-                                  <p>
-                                    {user.email}<br/>
-                                    {user.cell}
-                                  </p>
-                                  <hr/>
-                              </div>
-                            )
-                        :  <Loading message="Wait a moment..." />
-                        )
-
-                    }  
-                    
-            </div>
-
-          )
+        const eleLoading = <Loading message="Wait a moment..." />
+      
+        return (
+            this.state.loading?eleLoading:eleUser
+        )
 
     };
 
