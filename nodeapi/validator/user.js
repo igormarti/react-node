@@ -14,11 +14,11 @@ exports.createSingUpValidation = (req,res,next) => {
     .matches(/(?=.*\d)(?=.*[A-Z])(?=.*[a-z])/)
     .withMessage('Password must contain Uppercase,Lowercase and number')
 
-    const errors = req.validationErrors()
+    const error = req.validationErrors()
 
-    if(errors){
-        let errorsMsg = errors.map(error=>error.msg)[0]
-        return res.status(400).json({errors:errorsMsg})
+    if(error){
+        let errorsMsg = error.map(error=>error.msg)[0]
+        return res.status(400).json({error:errorsMsg})
     }
 
     next()

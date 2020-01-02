@@ -19,13 +19,26 @@ export default class Signup extends Component {
 
     submitForm = e => {
         e.preventDefault()
-        
         //Destructing object user of the state
         const {name,email,password} = this.state
         //Create object user for send to back-end
         const user = {name,email,password}
         //Executing request http to back-end
-        fetch(
+        this.signUp(user).then(data => {
+            if(data.error)   this.setState({error:data.error})
+                else this.setState({
+                        name:'',
+                        email:'',
+                        password:'',
+                        error:''
+                    })
+            
+        })
+    }
+
+    signUp = (user) => {
+
+       return  fetch(
             'http://127.0.0.1:2523/signup',
             {
                 'method':'POST',
@@ -35,23 +48,26 @@ export default class Signup extends Component {
                 },
                 'body':JSON.stringify(user)
             }
-        ).then(res=>{
+        ).then((res)=>{
             return res.json()
-        }).catch(error=>{
-            console.log(error);
-            
         })
+
     }
     
     render() {
 
-        const {name,email,password} = this.state;
+        const {name,email,password,error} = this.state;
 
         return (
             <div className="container col-lg-12" >
                 <div className="col-12" >
                      <h2 className="mt-5 mb-5 justify-content-center align-items-center d-flex" >Signup</h2>
                 </div>
+
+                <div style={{display:error?'':'none'}}  className="alert alert-primary col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center"  >
+                    {error}
+                </div>
+
                 <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">
                     <form>
                         <div className="form-group">
