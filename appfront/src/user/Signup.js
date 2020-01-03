@@ -48,7 +48,7 @@ export default class Signup extends Component {
                     'method':'POST',
                     'headers':{
                         'Accept':'application/json',
-                        'Content-type':'application/json'
+                        'Content-Type':'application/json'
                     },
                     'body':JSON.stringify(user)
                 }
@@ -72,7 +72,11 @@ export default class Signup extends Component {
                 <label className="text-muted" >Password</label>
                 <input type="password" value={password} onChange={this.handleChange('password')} className="form-control" ></input>
             </div>
-            <button  onClick={this.submitForm} className="btn btn-raised btn-primary btn-lg offset-5" >Submit</button>
+            <div className="justify-content-center align-items-center d-flex">
+                <button  onClick={this.submitForm} className="btn btn-raised btn-primary btn-lg" >
+                    Submit
+                </button>
+            </div>
         </form>
     )
     
@@ -84,7 +88,7 @@ export default class Signup extends Component {
             <div className="container col-lg-12" >
 
                 <div className="col-12" >
-                     <h2 className="mt-5 mb-5 justify-content-center align-items-center d-flex" >Signup</h2>
+                     <h2 className="mt-5 mb-5 justify-content-center align-items-center d-flex" >SignUp</h2>
                 </div>
 
                 {

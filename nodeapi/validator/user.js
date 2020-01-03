@@ -36,7 +36,7 @@ exports.createSingInValidation = (req,res,next) => {
 
     if(errors){
         let errorsMsg = errors.map(error=>error.msg)[0]
-        return res.status(400).json({errors:errorsMsg})
+        return res.status(400).json({error:errorsMsg})
     }
 
     next()
