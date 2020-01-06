@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Alert from '../alert/Alert'
 import {Redirect} from 'react-router-dom'
 import Loading from '../loading/Loading'
+import {authenticate,singIn} from '../auth/auth'
 
 export default class Signin extends Component {
 
@@ -20,27 +21,6 @@ export default class Signin extends Component {
         this.setState({[field]:e.target.value,error:""})
     }
 
-    authenticate(jwt,next){
-        if(typeof window !== 'undefined'){
-            localStorage.setItem('jwt',JSON.stringify(jwt))
-            next()
-        }
-    }
-
-    singIn = (user) => {
-
-        return fetch('http://127.0.0.1:2523/signin',{
-                    'method':'POST',
-                    'headers':{
-                        'Accept':'application/json',
-                        'Content-Type':'application/json'
-                    },
-                    'body':JSON.stringify(user)
-                }).then(res=>{
-                    return res.json()
-                })
-    }
-
     submitForm = (e) => {
 
         this.setState({loading:true})
@@ -51,13 +31,13 @@ export default class Signin extends Component {
 
         const user = {email,password}
 
-        this.singIn(user).then((data)=>{
+        singIn(user).then((data)=>{
 
             if(data.error){
                 this.setState({error:data.error,loading:false})
             }else{
                 //Authenticate
-                this.authenticate(data,() => {
+                authenticate(data,() => {
                     this.setState({redirectToRefer:true})
                 })
             }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Alert from '../alert/Alert'
+import auth,{signUp} from '../auth/auth'
 
 export default class Signup extends Component {
 
@@ -12,6 +13,10 @@ export default class Signup extends Component {
             password:"",
             error:"",
             success:false
+        }
+
+        if(auth()){
+            console.log('logado')
         }
     }
 
@@ -26,7 +31,7 @@ export default class Signup extends Component {
         //Create object user for send to back-end
         const user = {name,email,password}
         //Executing request http to back-end
-        this.signUp(user).then(data => {
+        signUp(user).then(data => {
             if(data.error)  this.setState({error:data.error,success:false})
                 
             else this.setState({
@@ -38,24 +43,6 @@ export default class Signup extends Component {
                     })
             
         })
-    }
-
-    signUp = (user) => {
-
-       return  fetch(
-               'http://127.0.0.1:2523/signup',
-               {
-                    'method':'POST',
-                    'headers':{
-                        'Accept':'application/json',
-                        'Content-Type':'application/json'
-                    },
-                    'body':JSON.stringify(user)
-                }
-                ).then((res)=>{
-                    return res.json()
-                })
-
     }
 
     signUpForm = (name,email,password) => (
