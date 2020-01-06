@@ -28,7 +28,8 @@ const Menu = ({history}) => (
             <Link className="navbar-brand" to="/" style={{color:isActive(history,'/')}} >Home</Link>
             <Link className="navbar-brand" to="/signup" style={{color:isActive(history,'/signup')}}  >Sign Up</Link>
             <Link className="navbar-brand" to="/signin" style={{color:isActive(history,'/signin')}} >Sign In</Link>
-            <a  className="navbar-brand" onClick={()=> signOut(()=>history.push('/signin'))} >
+            <a  className="navbar-brand" 
+                onClick={()=> signOut(()=>history.push('/signin'))} >
                 Sign Out
             </a>
         </nav>
