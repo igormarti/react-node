@@ -31,12 +31,15 @@ const Menu = ({history}) => (
             {
                 isAuthenticated() && (
                     <>
-                        <a  className="navbar-brand" 
+                        <Link className="navbar-brand" style={{color:isActive(history,`/user/${isAuthenticated().user._id}`)}}
+                        to={`/user/${isAuthenticated().user._id}`} 
+                        >
+                            {`${isAuthenticated().user.name}'s profile`}
+                        </Link>
+
+                        <a  className="navbar-brand" style={{color:'#fff'}}
                             onClick={()=> signOut(()=>history.push('/signin'))} >
                             Sign Out
-                        </a> 
-                        <a  className="navbar-brand" >
-                            {isAuthenticated().user.name}
                         </a> 
                     </>
                 )
