@@ -1,3 +1,4 @@
+const api_url = process.env.REACT_APP_API_URL;
 
 export default function isAuthenticated(){
 
@@ -24,7 +25,7 @@ export const signOut = (next) => {
 
     if(typeof window !== 'undefined') localStorage.removeItem('jwt')
     next()
-    return fetch('http://127.0.0.1:2523/signout',{
+    return fetch(`${api_url}/signout`,{
         'method':'GET'
     }).then(res => {
         return res.json()
@@ -35,8 +36,8 @@ export const signOut = (next) => {
 }
 
 export const singIn = (user) => {
-
-    return fetch('http://127.0.0.1:2523/signin',{
+    
+    return fetch(`${api_url}/signin`,{
                 'method':'POST',
                 'headers':{
                     'Accept':'application/json',
@@ -51,7 +52,7 @@ export const singIn = (user) => {
 export const signUp = (user) => {
 
     return  fetch(
-            'http://127.0.0.1:2523/signup',
+            `${api_url}/signup`,
             {
                  'method':'POST',
                  'headers':{
