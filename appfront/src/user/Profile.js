@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import User from '../auth/auth'
 import {Redirect} from 'react-router-dom'
+import {userById} from '../services/user_service'
 
 class Profile extends Component {
-
-    URL_API = process.env.REACT_APP_API_URL
 
     constructor(props){
         super(props)
@@ -15,20 +14,8 @@ class Profile extends Component {
     }
 
     componentDidMount(){
-
         const userId =  this.props.match.params.userId 
-        fetch(`${this.URL_API}/user/${userId}`,
-            {
-                'method':'GET',
-                'headers':{
-                    'Accept':'application/json',
-                    'Content-Type':'application/json',
-                    'Authorization':`Bearer ${User().token}`
-                }
-            }
-        ).then(res => {
-            return res.json()
-        }).then(data=>{
+        userById(userId).then(data=>{
             if(data.error){
                 this.setState({
                     redirectTosignIn:true
@@ -36,15 +23,14 @@ class Profile extends Component {
             }else{
                 this.setState({
                     user:data
-                })    
+                })
             }
         })
-
     }
 
     render(){
 
-        const {redirectTosignIn,user} = this.state
+        const redirectTosignIn = this.state.redirectTosignIn
 
         if(redirectTosignIn){
             return <Redirect to='/signin' />
@@ -57,7 +43,7 @@ class Profile extends Component {
                      <h2 className="mt-5 mb-5 ml-5" >Profile</h2>
                      <p className="ml-5" >Hello {User().user.name}</p>
                      <p className="ml-5" >Email: {User().user.email}</p>
-                     <p className="ml-5" >Joined {new Date(user.created_at).toDateString()}</p>
+                     <p className="ml-5" >Joined {new Date(User().user.created_at).toDateString()}</p>
                 </div>   
 
 

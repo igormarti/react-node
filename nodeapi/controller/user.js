@@ -36,11 +36,11 @@ exports.signin = (req,res)=>{
         //Store token in cookie 
         res.cookie("t",token,{expire: new Date() + 9999})
         //Destruturing user
-        const {_id,name} = user
+        const {_id,name,created_at} = user
         //Returning user informations
         return res.status(200).json({
             token,
-            user:{_id,name,email}
+            user:{_id,name,email,created_at}
         })
     })
 }
