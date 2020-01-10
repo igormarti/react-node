@@ -74,7 +74,7 @@ exports.allUsers = (req,res) =>{
             return res.status(400).json({error:err})
         }
 
-        return res.json({users})
+        return res.json(users)
     }).select('name email updated_at created_at')
 }
 

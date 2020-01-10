@@ -18,3 +18,18 @@ export const userById = userId => {
                 console.log(err)
             })
 }
+
+export const getUsers = () => {
+    return fetch(`${URL_API}/users`,
+            {
+            'method':'GET',
+            'headers':{
+                'Content-Type':'application/json',
+                'Accept':'application/json',
+            }
+            }).then(res=>{
+                return res.json()
+            }).catch(err=>{
+                console.log(err)
+            })
+}
