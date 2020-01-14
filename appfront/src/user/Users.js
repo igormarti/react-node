@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import {getUsers} from '../services/user_service'
+import defaultUserPhoto from '../images/userdefault.jpg'
+import {Link} from 'react-router-dom'
 
 class Users extends Component {
 
@@ -22,6 +24,28 @@ class Users extends Component {
         })
     }
 
+    showUsers = users => (
+        <div className="row" >
+            {
+                users.map((user,i) =>
+                <div className="card col-md-3 mr-2" key={i} 
+                style={{
+                    width:'100%'
+                    ,height:'15vw'
+                    ,objectFit:'cover'
+                }}>
+                    <img className="card-img-top" src={defaultUserPhoto} alt={`${user.name} photo's`} />
+                    <div className="card-body">
+                        <h5 className="card-title">{user.name}</h5>
+                        <p className="card-text">{user.email}</p>
+                        <Link to={`user/${user._id}`} className="btn btn-primary">View Profile</Link>
+                    </div>
+                </div>
+                )
+            }
+        </div>
+    )
+
     render() {
         const {users} = this.state
 
@@ -29,17 +53,8 @@ class Users extends Component {
             <div className="container col-lg-12" >
                 <div className="col-12" >
                      <h2 className="mt-5 mb-5 ml-5" >Users</h2>
-                        <div className="card" >
-                            {
-                                users.map((user,i)=>(
-                                    <div key={i} >
-                                           <p>{user.name}</p> 
-                                    </div>    
-                                ))
-                            }  
-                        </div>
-
-                </div>
+                     {this.showUsers(users)}
+                </div>  
             </div>
         )
     }
