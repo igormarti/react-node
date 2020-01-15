@@ -33,3 +33,19 @@ export const getUsers = () => {
                 console.log(err)
             })
 }
+
+export const deleteUser = userId => {
+    return fetch(`${URL_API}/user/${userId}`,
+            {
+            'method':'DELETE',
+            'headers':{
+                'Content-Type':'application/json',
+                'Accept':'application/json',
+                'Authorization':`Bearer ${User().token}`
+            }
+            }).then(res=>{
+                return res.json()
+            }).catch(err=>{
+                console.log(err)
+            })
+}
