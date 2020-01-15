@@ -25,22 +25,18 @@ class Users extends Component {
     }
 
     showUsers = users => (
-        <div className="row" >
+        <div className="row justify-content-center mb-5" >
             {
                 users.map((user,i) =>
-                <div className="card col-md-3 mr-2" key={i} 
-                style={{
-                    width:'100%'
-                    ,height:'15vw'
-                    ,objectFit:'cover'
-                }}>
+                <div className="card text-dark col-lg 3 col-md-3 col-sm-12 col-xs-12 mr-md-2 mb-2" style={{width:'18rem'}} key={i} >
                     <img className="card-img-top" src={defaultUserPhoto} alt={`${user.name} photo's`} />
                     <div className="card-body">
                         <h5 className="card-title">{user.name}</h5>
                         <p className="card-text">{user.email}</p>
-                        <Link to={`user/${user._id}`} className="btn btn-primary">View Profile</Link>
+                        <Link to={`user/${user._id}`} className="btn btn-raised btn-primary">View Profile</Link>
                     </div>
                 </div>
+                
                 )
             }
         </div>
@@ -50,7 +46,7 @@ class Users extends Component {
         const {users} = this.state
 
         return (
-            <div className="container col-lg-12" >
+            <div className="container" >
                 <div className="col-12" >
                      <h2 className="mt-5 mb-5 ml-5" >Users</h2>
                      {this.showUsers(users)}
