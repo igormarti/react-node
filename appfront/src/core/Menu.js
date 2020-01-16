@@ -14,10 +14,10 @@ const Menu = ({history}) => (
     <div>
         <nav className="navbar navbar-expand-sm  navbar-light bg-primary">
         <Link className="navbar-brand" to="/" style={{color:isActive(history,'/')}} >Home</Link>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Alterna navegação">
-        <span class="navbar-toggler-icon"></span>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Alterna navegação">
+        <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse" id="navbarNav">
                 <Link className="navbar-brand" to="/users" style={{color:isActive(history,'/users')}} >
                     Users
                 </Link>
