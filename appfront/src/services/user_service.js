@@ -49,3 +49,17 @@ export const deleteUser = userId => {
                 console.log(err)
             })
 }
+
+export const updateUser = (userId,user) => {
+    return fetch(`${URL_API}/user/${userId}`,
+    {
+        'method':'PUT',
+        'headers':{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'Authorization':`Bearer ${User().token}`
+        },
+        'body':JSON.stringify(user)
+    }).then(res => {return res.json()})
+    .catch(err => console.log(err))
+}

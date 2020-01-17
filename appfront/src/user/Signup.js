@@ -15,9 +15,6 @@ export default class Signup extends Component {
             success:false
         }
 
-        if(auth()){
-            console.log('logado')
-        }
     }
 
     handleChange = field => e =>{

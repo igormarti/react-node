@@ -92,14 +92,14 @@ exports.updateUser = (req,res,next) => {
     user.updated_at = Date.now()
     user.save(err=>{
         if(err){
-            res.status(400).json({
+            return res.status(400).json({
                 error:'Error try update user.'
             })
         }
 
         user.hashed_password = undefined
         user.salt = undefined
-        res.json({user})
+        return res.json({user})
     })
 
 }

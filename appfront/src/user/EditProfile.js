@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
-import {userById} from '../services/user_service'
+import {userById,updateUser} from '../services/user_service'
 import Alert from '../alert/Alert'
 
 class EditProfile extends Component{
@@ -12,7 +12,8 @@ class EditProfile extends Component{
             name:'',
             email:'',
             password:'',
-            error:''
+            error:'',
+            redirectToProfile:false
         }
     }
 
@@ -21,7 +22,7 @@ class EditProfile extends Component{
         userById(userId).then(data=>{
             if(data.error){
                 this.setState({
-                    redirectTosignIn:true
+                    redirectToProfile:true
                 })
             }else{
                 this.setState({
@@ -31,7 +32,7 @@ class EditProfile extends Component{
                 })
             }
         })
-    } 
+    }
 
     handleChange = field => e =>{
         this.setState({[field]:e.target.value,error:""})
@@ -40,11 +41,26 @@ class EditProfile extends Component{
     submitForm = (e) => {
         e.preventDefault()
         //Destructing object user of the state
-        const {name,email,password} = this.state
+        const {id,name,email,password} = this.state
         //Create object user for send to back-end
-        const user = {name,email,password}
+        const user = {
+           name,
+           email,
+           password:password || undefined
+        }
 
-        console.log(user)
+        updateUser(id,user).then(data => {
+            if(data.error){
+                this.setState({
+                    error:data.error
+                })
+            }else{
+                this.setState({
+                    redirectToProfile:true
+                })
+            }
+        })
+
     }
 
     updateUserForm = (name,email,password) => (
@@ -71,10 +87,10 @@ class EditProfile extends Component{
 
     render(){
 
-        const {error,redirectTosignIn,name,email,password} = this.state
+        const {id,name,email,password,error,redirectToProfile} = this.state
 
-        if(redirectTosignIn){
-            return <Redirect to='/' />
+        if(redirectToProfile){
+            return <Redirect to={`/user/${id}`} />
         }
 
         return(
