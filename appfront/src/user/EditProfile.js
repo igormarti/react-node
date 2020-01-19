@@ -40,27 +40,53 @@ class EditProfile extends Component{
 
     submitForm = (e) => {
         e.preventDefault()
-        //Destructing object user of the state
-        const {id,name,email,password} = this.state
-        //Create object user for send to back-end
-        const user = {
-           name,
-           email,
-           password:password || undefined
+
+        if(this.isValid()){
+
+            //Destructing object user of the state
+            const {id,name,email,password} = this.state
+            //Create object user for send to back-end
+            const user = {
+            name,
+            email,
+            password:password || undefined
+            }
+
+            updateUser(id,user).then(data => {
+                if(data.error){
+                    this.setState({
+                        error:data.error
+                    })
+                }else{
+                    this.setState({
+                        redirectToProfile:true
+                    })
+                }
+            })
+            
         }
 
-        updateUser(id,user).then(data => {
-            if(data.error){
-                this.setState({
-                    error:data.error
-                })
-            }else{
-                this.setState({
-                    redirectToProfile:true
-                })
-            }
-        })
+    }
 
+    isValid(){
+        const {name,email,password} = this.state
+        
+        if(name.length === 0){
+            this.setState({error:'Name is required'})
+            return false
+        }
+
+        if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+            this.setState({error:'Email valid is required'})
+            return false
+        }
+
+        if(password.length >= 1 && password.length < 6){
+            this.setState({error:'Password must be at least 6 characters long'})
+            return false 
+        }
+
+        return true
     }
 
     updateUserForm = (name,email,password) => (
