@@ -57,7 +57,7 @@ exports.signout = (req,res)=>{
 exports.userById = (req,res,next,id)=>{
 
     User.findById(id).exec((err,user)=>{
-        console.log(err)
+ 
         if(err || !user){
             return res.status(400).json({error:'User not found'})
         }
@@ -82,7 +82,7 @@ exports.getUser = (req,res) =>{
     req.profile.hashed_password = undefined
     req.profile.salt = undefined
 
-    return res.json(req.profile);
+    return res.status(200).json(req.profile);
 }
 
 exports.updateUser = (req,res,next) => {
