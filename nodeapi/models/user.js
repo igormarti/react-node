@@ -13,6 +13,10 @@ const userSchema = new moongoose.Schema({
         trim:true,
         required:true
     },
+    photo:{
+        data:Buffer,
+        contenType:String
+    },
     hashed_password:{
         type:String,
         required:true
