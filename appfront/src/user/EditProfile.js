@@ -15,7 +15,8 @@ class EditProfile extends Component{
             password:'',
             error:'',
             redirectToProfile:false,
-            loading:false
+            loading:false,
+            fileSize:0
         }
     }
 
@@ -39,15 +40,15 @@ class EditProfile extends Component{
 
     handleChange = field => e =>{
         const value = field==='photo'?e.target.files[0]:e.target.value
-        this.setState({[field]:value,error:""})
+        const fileSize = field==='photo'?e.target.files[0].size:0
+        this.setState({[field]:value,error:"",fileSize})
         this.userData.set(field,value)
     }
 
     submitForm = (e) => {
         e.preventDefault()
-        this.setState({loading:true})
         if(this.isValid()){
-
+            this.setState({loading:true})
             //Destructing object user of the state
             const {id,name,email,password} = this.state
             //Create object user for send to back-end
@@ -74,10 +75,15 @@ class EditProfile extends Component{
     }
 
     isValid(){
-        const {name,email,password} = this.state
+        const {name,email,password,fileSize} = this.state
         
         if(name.length === 0){
             this.setState({error:'Name is required'})
+            return false
+        }
+
+        if(fileSize > 100000){
+            this.setState({error:'Upload size should be less than 100kb'})
             return false
         }
 
