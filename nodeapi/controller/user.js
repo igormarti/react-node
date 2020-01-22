@@ -2,6 +2,8 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const _ = require('lodash')
+const formidable = require('formidable')
+const fs = require('fs')
 
 exports.signup = async (req,res)=>{
     const userExist = await User.findOne({email:req.body.email})
@@ -85,23 +87,58 @@ exports.getUser = (req,res) =>{
     return res.status(200).json(req.profile);
 }
 
+// exports.updateUser = (req,res,next) => {
+
+//     let user = req.profile
+//     user = _.extend(user,req.body)
+//     user.updated_at = Date.now()
+//     user.save(err=>{
+//         if(err){
+//             return res.status(400).json({
+//                 error:'Error try update user.'
+//             })
+//         }
+
+//         user.hashed_password = undefined
+//         user.salt = undefined
+//         return res.json({user})
+//     })
+
+// }
+
 exports.updateUser = (req,res,next) => {
+    const form = new formidable.IncomingForm()
+    form.keepExtensions = true
 
-    let user = req.profile
-    user = _.extend(user,req.body)
-    user.updated_at = Date.now()
-    user.save(err=>{
-        if(err){
-            return res.status(400).json({
-                error:'Error try update user.'
+    form.parse(req, (err,fields,files)=>{
+
+            if(err){
+                return res.status(400).json({
+                    error:'Image could not be uploaded'
+                }) 
+            }
+
+            let user = req.profile
+            user = _.extend(user,fields)
+            user.updated_at = Date.now()
+
+            if(files.photo){
+                user.photo.data = fs.readFileSync(files.photo.path)
+                user.photo.contentType = files.photo.type
+            }
+
+            user.save((err,result)=>{
+                if(err){
+                    return res.status(400).json({
+                        error: err
+                    });
+                }
+                user.hashed_password = undefined
+                user.salt = undefined
+                return res.status(200).json(user)
             })
-        }
 
-        user.hashed_password = undefined
-        user.salt = undefined
-        return res.json({user})
     })
-
 }
 
 exports.deleteUser = (req,res,next) => {
