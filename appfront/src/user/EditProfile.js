@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import {userById,updateUser} from '../services/user_service'
 import Alert from '../alert/Alert'
+import Loading from "../loading/Loading";
 
 class EditProfile extends Component{
 
@@ -13,12 +14,14 @@ class EditProfile extends Component{
             email:'',
             password:'',
             error:'',
-            redirectToProfile:false
+            redirectToProfile:false,
+            loading:false
         }
     }
 
     componentDidMount(){
         const userId =  this.props.match.params.userId 
+        this.userData = new FormData()
         userById(userId).then(data=>{
             if(data.error){
                 this.setState({
@@ -35,12 +38,14 @@ class EditProfile extends Component{
     }
 
     handleChange = field => e =>{
-        this.setState({[field]:e.target.value,error:""})
+        const value = field==='photo'?e.target.files[0]:e.target.value
+        this.setState({[field]:value,error:""})
+        this.userData.set(field,value)
     }
 
     submitForm = (e) => {
         e.preventDefault()
-
+        this.setState({loading:true})
         if(this.isValid()){
 
             //Destructing object user of the state
@@ -52,7 +57,7 @@ class EditProfile extends Component{
             password:password || undefined
             }
 
-            updateUser(id,user).then(data => {
+            updateUser(id,this.userData).then(data => {
                 if(data.error){
                     this.setState({
                         error:data.error
@@ -92,6 +97,10 @@ class EditProfile extends Component{
     updateUserForm = (name,email,password) => (
         <form>
             <div className="form-group">
+                <label className="text-muted" >Profile Photo</label>
+                <input accept="image/*" type="file" onChange={this.handleChange('photo')} className="form-control" ></input>
+            </div>
+            <div className="form-group">
                 <label className="text-muted" >Name</label>
                 <input type="text" value={name} onChange={this.handleChange('name')} className="form-control" ></input>
             </div>
@@ -113,7 +122,7 @@ class EditProfile extends Component{
 
     render(){
 
-        const {id,name,email,password,error,redirectToProfile} = this.state
+        const {id,name,email,password,error,redirectToProfile,loading} = this.state
 
         if(redirectToProfile){
             return <Redirect to={`/user/${id}`} />
@@ -127,6 +136,10 @@ class EditProfile extends Component{
                 {
                  error?(<Alert message={error} type="danger" />):''
                 }
+
+                <div className="col-12 justify-content-center align-items-center d-flex" >
+                    { (loading)?<Loading type="spokes" />:'' }   
+                </div>
 
                 <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">
                     {this.updateUserForm(name,email,password)}
