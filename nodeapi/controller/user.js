@@ -87,29 +87,9 @@ exports.getUser = (req,res) =>{
     return res.status(200).json(req.profile);
 }
 
-// exports.updateUser = (req,res,next) => {
-
-//     let user = req.profile
-//     user = _.extend(user,req.body)
-//     user.updated_at = Date.now()
-//     user.save(err=>{
-//         if(err){
-//             return res.status(400).json({
-//                 error:'Error try update user.'
-//             })
-//         }
-
-//         user.hashed_password = undefined
-//         user.salt = undefined
-//         return res.json({user})
-//     })
-
-// }
-
 exports.updateUser = (req,res,next) => {
     const form = new formidable.IncomingForm()
     form.keepExtensions = true
-
     form.parse(req, (err,fields,files)=>{
 
             if(err){
@@ -154,4 +134,13 @@ exports.deleteUser = (req,res,next) => {
         user.salt = undefined
         res.json({user,'msg':"User "+user.name+" was deleted with success"})
     })
-} 
+}
+
+exports.photoUser = (req,res,next) => {
+    if(req.profile.photo.data){
+        console.log(req.profile.photo.contentType)
+        res.set(('Content-Type',req.profile.photo.contentType))
+        res.send(req.profile.photo.data)
+    }
+    next()
+}
