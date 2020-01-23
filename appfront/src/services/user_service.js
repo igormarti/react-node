@@ -51,7 +51,6 @@ export const deleteUser = userId => {
 }
 
 export const updateUser = (userId,user) => {
-    console.log(user)
     return fetch(`${URL_API}/user/${userId}`,
     {
         'method':'PUT',
@@ -64,3 +63,5 @@ export const updateUser = (userId,user) => {
     }).then(res => {return res.json()})
     .catch(err => console.log(err))
 }
+
+export const photoUser = userId => {return `${URL_API}/user/photo/${userId}`}

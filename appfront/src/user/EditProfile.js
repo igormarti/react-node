@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
-import {userById,updateUser} from '../services/user_service'
+import {userById,updateUser,photoUser} from '../services/user_service'
 import Alert from '../alert/Alert'
 import Loading from "../loading/Loading";
+import defaultUserPhoto from '../images/userdefault.jpg'
 
 class EditProfile extends Component{
 
@@ -134,6 +135,9 @@ class EditProfile extends Component{
             return <Redirect to={`/user/${id}`} />
         }
 
+        const photoURL = id?photoUser(id):defaultUserPhoto
+        console.log(photoURL)
+
         return(
 
             <div className='container' >
@@ -145,7 +149,10 @@ class EditProfile extends Component{
 
                 <div className="col-12 justify-content-center align-items-center d-flex" >
                     { (loading)?<Loading type="spokes" />:'' }   
-                </div>
+                </div> 
+                <div className="col-12 justify-content-center align-items-center d-flex" >
+                     <img src={photoURL} className="img-fluid" alt={name} />
+                </div>     
 
                 <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">
                     {this.updateUserForm(name,email,password)}
