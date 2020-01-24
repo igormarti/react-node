@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import User from '../auth/auth'
 import {Redirect,Link} from 'react-router-dom'
-import {userById} from '../services/user_service'
+import {userById,photoUser} from '../services/user_service'
 import defaultUserPhoto from '../images/userdefault.jpg'
 import Delete from './Delete'
 
@@ -54,19 +54,18 @@ class Profile extends Component {
             return <Redirect to='/signin' />
         }
 
+        const photoURL = user._id?photoUser(user._id):defaultUserPhoto
+
         return(
             <div className="container col-12" >
                 <h2 className="mt-5 mb-5 ml-5" >Profile</h2>
                 <div className="row" >
                     <div className="col-lg-6 col-md-6 col-sm-12" >
                        
-                            <img className="card-img-top" 
-                            src={defaultUserPhoto} alt={`${user.name}`}
-                            style={{
-                                width:'100%'
-                                ,height:'15vw'
-                                ,objectFit:'cover'
-                            }}
+                            <img className="img-fluid col-md-ml-3"
+                            style={{width:'80%'}} 
+                            src={photoURL} alt={`${user.name}`}
+                            onError={i=> i.target.src = `${defaultUserPhoto}`}
                             />
                 
                     </div>  

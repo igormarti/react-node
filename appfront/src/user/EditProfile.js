@@ -136,7 +136,6 @@ class EditProfile extends Component{
         }
 
         const photoURL = id?photoUser(id):defaultUserPhoto
-        console.log(photoURL)
 
         return(
 
@@ -151,7 +150,9 @@ class EditProfile extends Component{
                     { (loading)?<Loading type="spokes" />:'' }   
                 </div> 
                 <div className="col-12 justify-content-center align-items-center d-flex" >
-                     <img src={photoURL} className="img-fluid" alt={name} />
+                     <img src={photoURL} className="img-fluid" alt={name}
+                      onError={i=> i.target.src = `${defaultUserPhoto}`}
+                     />
                 </div>     
 
                 <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">

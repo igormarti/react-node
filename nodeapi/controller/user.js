@@ -138,7 +138,6 @@ exports.deleteUser = (req,res,next) => {
 
 exports.photoUser = (req,res,next) => {
     if(req.profile.photo.data){
-        console.log(req.profile.photo.contentType)
         res.set(('Content-Type',req.profile.photo.contentType))
         res.send(req.profile.photo.data)
     }
