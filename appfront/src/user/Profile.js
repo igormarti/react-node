@@ -54,15 +54,15 @@ class Profile extends Component {
             return <Redirect to='/signin' />
         }
 
-        const photoURL = user._id?photoUser(user._id):defaultUserPhoto
+        const photoURL = user._id?photoUser(user._id,new Date().getTime()):defaultUserPhoto
 
         return(
             <div className="container col-12" >
                 <h2 className="mt-5 mb-5 ml-5" >Profile</h2>
                 <div className="row" >
-                    <div className="col-lg-6 col-md-6 col-sm-12" >
+                    <div className="col-lg-6 col-md-6 col-sm-12 mb-5" >
                        
-                            <img className="img-fluid col-md-ml-3"
+                            <img className="img-fluid img-thumbnail rounded mx-auto d-block"
                             style={{width:'80%'}} 
                             src={photoURL} alt={`${user.name}`}
                             onError={i=> i.target.src = `${defaultUserPhoto}`}

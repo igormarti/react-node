@@ -64,4 +64,7 @@ export const updateUser = (userId,user) => {
     .catch(err => console.log(err))
 }
 
-export const photoUser = userId => {return `${URL_API}/user/photo/${userId}`}
+export const photoUser = (userId,dateTime='') => {
+    const datetime = dateTime !== '' ? `?${dateTime}` : ''
+    return `${URL_API}/user/photo/${userId}${datetime}`
+}

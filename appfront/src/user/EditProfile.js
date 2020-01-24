@@ -135,7 +135,7 @@ class EditProfile extends Component{
             return <Redirect to={`/user/${id}`} />
         }
 
-        const photoURL = id?photoUser(id):defaultUserPhoto
+        const photoURL = id?photoUser(id,new Date().getTime()):defaultUserPhoto
 
         return(
 
@@ -149,8 +149,8 @@ class EditProfile extends Component{
                 <div className="col-12 justify-content-center align-items-center d-flex" >
                     { (loading)?<Loading type="spokes" />:'' }   
                 </div> 
-                <div className="col-12 justify-content-center align-items-center d-flex" >
-                     <img src={photoURL} className="img-fluid" alt={name}
+                <div className="col-12 justify-content-center align-items-center d-flex mb-2" >
+                     <img src={photoURL} className="img-fluid img-thumbnail rounded mx-auto d-block" alt={name}
                       onError={i=> i.target.src = `${defaultUserPhoto}`}
                      />
                 </div>     
