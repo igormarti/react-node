@@ -61,12 +61,21 @@ class Profile extends Component {
                 <h2 className="mt-5 mb-5 ml-5" >Profile</h2>
                 <div className="row" >
                     <div className="col-lg-6 col-md-6 col-sm-12 mb-5" >
-                       
-                            <img className="img-fluid img-thumbnail rounded mx-auto d-block"
-                            style={{width:'80%'}} 
+
+                         <div className="card offset-md-5" style={{width:'18rem'}}>
+                         <figure className="figure">
+                            <img className="figure-img img-fluid rounded"
                             src={photoURL} alt={`${user.name}`}
                             onError={i=> i.target.src = `${defaultUserPhoto}`}
                             />
+                        </figure>
+                            <div className="card-body">
+                                <h3 className='text-dark' >About</h3>
+                                <p className="card-text text-dark">.
+                                    {user.about || `Hello, I'm ${user.name}`}
+                                </p>
+                            </div>
+                        </div>    
                 
                     </div>  
 
@@ -75,11 +84,11 @@ class Profile extends Component {
                         <p className="ml-5" >Hello {user.name}</p>
                         <p className="ml-5" >Email: {user.email}</p>
                         <p className="ml-5" >Joined {new Date(user.created_at).toDateString()}</p>
-                        </div>
+                    </div>
 
                     {
                         User().user && User().user._id === user._id && (
-                            <div className='row justify-content-center'>
+                            <div className='row justify-content-center mb-5'>
                                     <div className="col-5 col-md-3">
                                         <Link className='btn btn-raised btn-success btn-sm' to={`/user/edit/${user._id}`}>
                                             Edit Profile

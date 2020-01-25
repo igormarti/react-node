@@ -30,8 +30,12 @@ class Users extends Component {
             {
                 users.map((user,i) =>
                 <div className="card text-dark col-lg 3 col-md-3 col-sm-12 col-xs-12 mr-md-2 mb-2" style={{width:'18rem'}} key={i} >
-                    <img className="img-fluid img-thumbnail rounded mx-auto d-block" src={photoUser(user._id)} 
-                    alt={`${user.name} photo's`} onError={i=> i.target.src = `${defaultUserPhoto}`} />
+                    <picture>
+                        <img className="img-thumbnail" src={photoUser(user._id,new Date().getTime())} 
+                        alt={`${user.name} photo's`} 
+                        style={{maxWidth:'100%'}}
+                        onError={i=> i.target.src = `${defaultUserPhoto}`} />
+                    </picture>
                     <div className="card-body">
                         <h5 className="card-title">{user.name}</h5>
                         <p className="card-text">{user.email}</p>
