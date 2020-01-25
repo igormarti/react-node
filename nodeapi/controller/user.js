@@ -58,7 +58,10 @@ exports.signout = (req,res)=>{
 
 exports.userById = (req,res,next,id)=>{
 
-    User.findById(id).exec((err,user)=>{
+    User.findById(id)
+    .populate('Following','_id name')
+    .populate('Followers','_id name')
+    .exec((err,user)=>{
  
         if(err || !user){
             return res.status(400).json({error:'User not found'})
@@ -142,4 +145,36 @@ exports.photoUser = (req,res,next) => {
         res.send(req.profile.photo.data)
     }
     next()
+}
+
+exports.addFollowing = (req,res,next) => {
+
+    User.findByIdAndUpdate(req.body.userId,{$push:{Following:req.body.followId}},(err,result)=>{
+        if(err){
+            return res.status(400).json({
+                error: err
+            });   
+        }
+        next()
+    })
+
+}
+
+exports.addFollower = (req,res) => {
+
+    User.findByIdAndUpdate(req.body.followId,{$push:{Followers:req.body.userId}},{new:true})
+    .populate('Following','_id name')
+    .populate('Followers','_id name')
+    .exec( (err,result)=>{
+        if(err){
+            return res.status(400).json({
+                error: err
+            });   
+        }
+        result.salt = undefined
+        result.hashed_password = undefined
+
+        return res.status(200).json(result)
+    })
+
 }

@@ -9,6 +9,8 @@ const {
         ,updateUser
         ,deleteUser
         ,photoUser
+        ,addFollowing
+        ,addFollower
     } = require('../controller/user')
 const Auth = require('../middleware/auth')
 const router = express.Router()
@@ -23,6 +25,7 @@ router.get('/user/:userId',Auth.HasPermission ,getUser)
 router.put('/user/:userId',Auth.HasPermission,updateUser)
 router.delete('/user/:userId',Auth.HasPermission,deleteUser)
 router.get('/user/photo/:userId',photoUser)
+router.put('/user/follow',Auth.HasPermission,addFollowing,addFollower)
 
 //Router for user params
 router.param('userId',userById)
