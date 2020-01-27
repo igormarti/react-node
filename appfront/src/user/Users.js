@@ -26,20 +26,34 @@ class Users extends Component {
     }
 
     showUsers = users => (
-        <div className="row justify-content-center mb-5" >
+        <div className="card-deck" >
             {
                 users.map((user,i) =>
-                <div className="card text-dark col-lg 3 col-md-3 col-sm-12 col-xs-12 mr-md-2 mb-2" style={{width:'18rem'}} key={i} >
-                    <picture>
-                        <img className="img-thumbnail" src={photoUser(user._id,new Date().getTime())} 
+                <div className="card text-dark mr-md-2 mb-2" key={i} >
+                        {/* <img className="card-img-top" src={photoUser(user._id,new Date().getTime())} 
                         alt={`${user.name} photo's`} 
-                        style={{maxWidth:'100%'}}
-                        onError={i=> i.target.src = `${defaultUserPhoto}`} />
-                    </picture>
+                        style={{width:'100%'}}
+                        onError={i=> i.target.src = `${defaultUserPhoto}`} /> */}
+                        <div 
+                        style={
+                            {
+                                backgroundImage: `url(${photoUser(user._id,new Date().getTime())}), url(${defaultUserPhoto})`, 
+                                backgroundPosition: 'center center',
+                                backgroundColor: '#333333',
+                                backgroundSize:'cover',
+                                backgroundRepeat: 'no-repeat',
+                                width:'100%',
+                                height:'150px'
+                                }
+                            }></div>
                     <div className="card-body">
                         <h5 className="card-title">{user.name}</h5>
                         <p className="card-text">{user.email}</p>
-                        <Link to={`user/${user._id}`} className="btn btn-raised btn-primary">View Profile</Link>
+                    </div>
+                    <div>
+                        <ul className="card-footer p-0 list-group list-group-flush">
+                            <Link to={`user/${user._id}`} className="btn btn-raised btn-primary float-right m-0">View Profile</Link>
+                        </ul>
                     </div>
                 </div>
                 )

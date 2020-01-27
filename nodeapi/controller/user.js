@@ -178,3 +178,35 @@ exports.addFollower = (req,res) => {
     })
 
 }
+
+exports.removeFollowing = (req,res,next) => {
+
+    User.findByIdAndUpdate(req.body.userId,{$pull:{Following:req.body.unfollowId}},(err,result) => {
+        if(err){
+            return res.status(400).json({
+                error: err
+            });   
+        }
+        next()
+    })
+
+}
+
+exports.removeFollower = (req,res) => {
+
+    User.findByIdAndUpdate(req.body.unfollowId,{$pull:{Followers:req.body.userId}},{new:true})
+    .populate('Following','_id name')
+    .populate('Followers','_id name')
+    .exec((err,result)=>{
+        if(err){
+            return res.status(400).json({
+                error: err
+            });   
+        }
+        result.salt = undefined
+        result.hashed_password = undefined
+
+        return res.status(200).json(result)
+    })
+    
+}

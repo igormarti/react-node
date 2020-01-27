@@ -159,7 +159,7 @@ class EditProfile extends Component{
                 <div className="col-12 justify-content-center align-items-center d-flex" >
                     { (loading)?<Loading type="spokes" />:'' }   
                 </div> 
-                <div className="col-4 offset-md-4 justify-content-center align-items-center d-flex mb-2" >
+                <div className="col-md-4 offset-md-4 justify-content-center align-items-center d-flex mb-2" >
                     <figure className="figure">
                         <img src={photoURL} className="figure-img img-fluid rounded" alt={name}
                         onError={i=> i.target.src = `${defaultUserPhoto}`}

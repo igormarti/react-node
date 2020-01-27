@@ -42,7 +42,7 @@ class Delete extends Component {
         }
 
         return (
-            <div className="col-4 col-md-6" >
+            <div className="col-4 col-md-6 col-lg-7" >
                 <button onClick={this.confirmDelete} className="btn btn-raised btn-danger" >
                    {this.props.name}
                 </button>

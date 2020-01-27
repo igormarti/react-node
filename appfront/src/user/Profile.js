@@ -62,13 +62,13 @@ class Profile extends Component {
                 <div className="row" >
                     <div className="col-lg-6 col-md-6 col-sm-12 mb-5" >
 
-                         <div className="card offset-md-5" style={{width:'18rem'}}>
-                         <figure className="figure">
+                         <div className="card offset-lg-5 offset-md-3 offset-1" style={{width:'18rem'}}>
+
                             <img className="figure-img img-fluid rounded"
                             src={photoURL} alt={`${user.name}`}
                             onError={i=> i.target.src = `${defaultUserPhoto}`}
                             />
-                        </figure>
+                      
                             <div className="card-body">
                                 <h3 className='text-dark' >About</h3>
                                 <p className="card-text text-dark">.
@@ -89,7 +89,7 @@ class Profile extends Component {
                     {
                         User().user && User().user._id === user._id && (
                             <div className='row justify-content-center mb-5'>
-                                    <div className="col-5 col-md-3">
+                                    <div className="col-5 col-md-4 col-lg-3">
                                         <Link className='btn btn-raised btn-success btn-sm' to={`/user/edit/${user._id}`}>
                                             Edit Profile
                                         </Link>
