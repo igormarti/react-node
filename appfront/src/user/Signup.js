@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Alert from '../alert/Alert'
-import auth,{signUp} from '../auth/auth'
+import {signUp} from '../auth/auth'
 
 export default class Signup extends Component {
 

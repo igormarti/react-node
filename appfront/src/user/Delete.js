@@ -9,8 +9,7 @@ class Delete extends Component {
         redirectToSignIn:false
     }
 
-    constructor(props){
-        super(props)
+    constructor(){
     }
 
     deleteAccount = () => {

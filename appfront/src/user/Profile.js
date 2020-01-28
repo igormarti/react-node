@@ -4,6 +4,7 @@ import {Redirect,Link} from 'react-router-dom'
 import {userById,photoUser} from '../services/user_service'
 import defaultUserPhoto from '../images/userdefault.jpg'
 import Delete from './Delete'
+import FollowProfileButton from './FollowProfileButton'
 
 
 class Profile extends Component {
@@ -11,39 +12,44 @@ class Profile extends Component {
     constructor(props){
         super(props)
         this.state = {
-            user:"",
-            redirectTosignIn:false
+            user:{Following:[],Followers:[]},
+            redirectTosignIn:false,
+            following:false
         }
     }
 
     componentDidMount(){
-        const userId =  this.props.match.params.userId 
+        const userId = this.props.match.params.userId 
+        this.init(userId)
+    }
+
+    componentWillReceiveProps(props){
+        const userId = props.match.params.userId 
+        this.init(userId)
+    }
+
+    init = userId => {
         userById(userId).then(data=>{
             if(data.error){
                 this.setState({
                     redirectTosignIn:true
                 })
             }else{
+                let following = this.checkFollow(data)
                 this.setState({
-                    user:data
+                    user:data,
+                    following
                 })
             }
         })
     }
 
-    componentWillReceiveProps(props){
-        const userId = props.match.params.userId 
-        userById(userId).then(data=>{
-            if(data.error){
-                this.setState({
-                    redirectTosignIn:true
-                })
-            }else{
-                this.setState({
-                    user:data
-                })
-            }
+    checkFollow = user => {
+        let jwt = User()
+        let match = user.Followers.find( follower => {
+            return follower._id === jwt.user._id
         })
+        return match
     }
 
     render(){
@@ -87,7 +93,7 @@ class Profile extends Component {
                     </div>
 
                     {
-                        User().user && User().user._id === user._id && (
+                        User().user && User().user._id === user._id ? (
                             <div className='row justify-content-center mb-5'>
                                     <div className="col-5 col-md-4 col-lg-3">
                                         <Link className='btn btn-raised btn-success btn-sm' to={`/user/edit/${user._id}`}>
@@ -96,6 +102,9 @@ class Profile extends Component {
                                     </div>
                                     <Delete name="Delete" userId={user._id} />  
                             </div>  
+                        ):
+                        (
+                            <FollowProfileButton following={this.state.following} />
                         )
                     } 
                     </div>

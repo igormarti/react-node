@@ -43,7 +43,7 @@ const Menu = ({history}) => (
                             {`${isAuthenticated().user.name}'s profile`}
                         </Link>
 
-                        <a  className="navbar-brand" style={{color:'#fff'}}
+                        <a className="navbar-brand" style={{color:'#fff'}}
                             onClick={()=> signOut(()=>history.push('/signin'))} >
                             Sign Out
                         </a> 

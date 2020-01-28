@@ -53,17 +53,7 @@ class EditProfile extends Component{
         e.preventDefault()
         if(this.isValid()){
             this.setState({loading:true})
-            //Destructing object user of the state
-            const {id,name,email,password,about} = this.state
-            //Create object user for send to back-end
-            const user = {
-            name,
-            email,
-            about,
-            password:password || undefined
-            }
-
-            updateUser(id,this.userData).then(data => {
+            updateUser( this.state.id,this.userData).then(data => {
                 if(data.error){
                     this.setState({
                         error:data.error
