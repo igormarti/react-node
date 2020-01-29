@@ -43,7 +43,7 @@ class Users extends Component {
                                 backgroundSize:'cover',
                                 backgroundRepeat: 'no-repeat',
                                 width:'100%',
-                                height:'150px'
+                                height:'200px'
                                 }
                             }></div>
                     <div className="card-body">
