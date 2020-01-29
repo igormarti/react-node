@@ -126,13 +126,14 @@ class Profile extends Component {
                             />
                         )
                     } 
-                     <hr/>
-                     <ProfileTabs followers={user.Followers} following={user.Following} />
+                    
 
                     </div>
                     
                 </div>
-
+            
+                <hr/>
+                <ProfileTabs followers={user.Followers} following={user.Following} />
             </div>    
         )
     }
