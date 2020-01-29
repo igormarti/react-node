@@ -5,6 +5,7 @@ import {userById,photoUser} from '../services/user_service'
 import defaultUserPhoto from '../images/userdefault.jpg'
 import Delete from './Delete'
 import FollowProfileButton from './FollowProfileButton'
+import ProfileTabs from './ProfileTabs'
 
 
 class Profile extends Component {
@@ -125,10 +126,12 @@ class Profile extends Component {
                             />
                         )
                     } 
+                     <hr/>
+                     <ProfileTabs followers={user.Followers} following={user.Following} />
+
                     </div>
                     
                 </div>
-
 
             </div>    
         )
