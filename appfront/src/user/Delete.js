@@ -8,10 +8,7 @@ class Delete extends Component {
     state = {
         redirectToSignIn:false
     }
-
-    constructor(){
-    }
-
+    
     deleteAccount = () => {
         deleteUser(this.props.userId).then(data=>{
             if(data.error){

@@ -1,10 +1,14 @@
 import React,{Component} from 'react'
-import { follow } from "../services/user_service";
+import { follow,unFollow } from "../services/user_service";
 
 class FollowProfileButton extends Component {
 
     followClick = () => {
         this.props.onClickButton(follow)
+    }
+
+    unFollowClick = () => {
+        this.props.onClickButton(unFollow)
     }
 
     render(){
@@ -16,7 +20,7 @@ class FollowProfileButton extends Component {
                         Follow
                     </button>
                 ):(
-                    <button className='btn btn-raised btn-warning btn-block offset-lg-2 offset-md-2'>
+                    <button onClick={this.unFollowClick} className='btn btn-raised btn-warning btn-block offset-lg-2 offset-md-2'>
                         Unfollow
                     </button>
                 )

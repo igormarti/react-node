@@ -89,6 +89,20 @@ export const follow = (userId,followId) => {
     .catch(err => console.log(err))
 }
 
+export const unFollow = (userId,unfollowId) => {
+    return fetch(`${URL_API}/user/unfollow`,
+    {
+        'method':'PUT',
+        'headers':{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'Authorization':`Bearer ${User().token}`
+        },
+        'body':JSON.stringify({userId,unfollowId})
+    }).then(res => {return res.json()})
+    .catch(err => console.log(err))
+}
+
 export const photoUser = (userId,dateTime='') => {
     const datetime = dateTime !== '' ? `?${dateTime}` : ''
     return `${URL_API}/user/photo/${userId}${datetime}`

@@ -46,7 +46,7 @@ class Profile extends Component {
     }
 
     clickFollowButton = callbackApi => {
-        const userId = this.props.match.params.userId 
+        const userId = User().user._id
         callbackApi(userId,this.state.user._id).then(data=>{
             if(data.error){
                 this.setState({error:data.error})

@@ -62,7 +62,7 @@ exports.userById = (req,res,next,id)=>{
     .populate('Following','_id name')
     .populate('Followers','_id name')
     .exec((err,user)=>{
-        console.log(err)
+    
         if(err || !user){
             return res.status(400).json({error:'User not found'})
         }
