@@ -62,7 +62,7 @@ exports.userById = (req,res,next,id)=>{
     .populate('Following','_id name')
     .populate('Followers','_id name')
     .exec((err,user)=>{
- 
+        console.log(err)
         if(err || !user){
             return res.status(400).json({error:'User not found'})
         }
@@ -148,7 +148,7 @@ exports.photoUser = (req,res,next) => {
 }
 
 exports.addFollowing = (req,res,next) => {
-
+   
     User.findByIdAndUpdate(req.body.userId,{$push:{Following:req.body.followId}},(err,result)=>{
         if(err){
             return res.status(400).json({

@@ -14,7 +14,8 @@ class Profile extends Component {
         this.state = {
             user:{Following:[],Followers:[]},
             redirectTosignIn:false,
-            following:false
+            following:false,
+            error:''
         }
     }
 
@@ -43,6 +44,20 @@ class Profile extends Component {
             }
         })
     }
+
+    clickFollowButton = callbackApi => {
+        const userId = this.props.match.params.userId 
+        callbackApi(userId,this.state.user._id).then(data=>{
+            if(data.error){
+                this.setState({error:data.error})
+            }else{
+                this.setState({
+                    user:data,
+                    following:!this.state.following
+                })
+            }
+        })
+    } 
 
     checkFollow = user => {
         let jwt = User()
@@ -104,7 +119,10 @@ class Profile extends Component {
                             </div>  
                         ):
                         (
-                            <FollowProfileButton following={this.state.following} />
+                            <FollowProfileButton 
+                                onClickButton={this.clickFollowButton}
+                                following={this.state.following}
+                            />
                         )
                     } 
                     </div>
