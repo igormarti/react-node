@@ -35,6 +35,18 @@ const Menu = ({history}) => (
             }
 
             {
+                 isAuthenticated() && (
+                    <>
+                        <Link className="navbar-brand" style={{color:isActive(history,`/user/findpeople/${isAuthenticated().user._id}`)}}
+                        to={`/user/findpeople/${isAuthenticated().user._id}`} 
+                        >
+                            Find People
+                        </Link>
+                    </>
+                )
+            }
+
+            {
                 isAuthenticated() && (
                     <>
                         <Link className="navbar-brand" style={{color:isActive(history,`/user/${isAuthenticated().user._id}`)}}
