@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import '../css/profiletabs.css'
 import {photoUser} from '../services/user_service'
 import defaultUserPhoto from '../images/userdefault.jpg'
@@ -14,31 +15,28 @@ class ProfileTabs extends Component {
 
        <div className="row mb-5" > 
        
-            <div className="col-sm-6 col-lg-6">
+            <div className="col-sm-6 col-lg-3">
 
-                <h4 className="text-primary" >Following</h4>
+                <h5 className="text-primary" >Following</h5>
               
                     {
                         following.length > 0?
                         following.map((person,i) => 
                         <div className="list list-row block" key={i}>
                             <div className="list-item" >
-                                <div>
-                                    <a href="#" data-abc="true">
+                                <Link to={`/user/${person._id}`} className="d-flex" >
+                                    <div>
                                         <span className="w-48 avatar gd-primary">
                                             <img src={photoUser(person._id,new Date().getTime())} alt={person.name}
                                                 onError={i=> i.target.src = `${defaultUserPhoto}`}
+                                                className='border border-primary'
                                             />
                                         </span>
-                                    </a>
-                                </div>
-                                <div className="flex"> <a href="#" className="item-author text-color" data-abc="true">{person.name}</a>
-                                    <div className="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business content?</div>
-                                </div>
-                                <div className="no-wrap">
-                                    <div className="item-date text-muted text-sm d-none d-md-block">21 July</div>
-                                </div>
-
+                                    </div>
+                                    <div className="flex ml-2"> 
+                                        <p href="#" className="item-author text-color lead" >{person.name}</p>
+                                    </div>
+                                </Link>
                           </div> 
                           </div>
                        ):<p className="text-primary justify-content-center align-items-center d-flex border border-ligth rounded" >
@@ -50,33 +48,30 @@ class ProfileTabs extends Component {
             </div>
 
 
-            <div className="col-sm-6 col-lg-6">
+            <div className="col-sm-6 col-lg-3">
 
-                <h4 className="text-primary" >Followers</h4>
+                <h5 className="text-primary" >Followers</h5>
 
                     {
                         followers.length > 0?
                         followers.map((person,i) => 
                         <div className="list list-row block" key={i}>
                             <div className="list-item" >
-                                <div>
-                                    <a href="#" data-abc="true">
+                                <Link to={`/user/${person._id}`} className="d-flex" >
+                                    <div>
                                         <span className="w-48 avatar gd-primary">
                                             <img src={photoUser(person._id,new Date().getTime())} alt={person.name}
                                                 onError={i=> i.target.src = `${defaultUserPhoto}`}
+                                                className='border border-primary'
                                             />
                                         </span>
-                                    </a>
-                                </div>
-                                <div className="flex"> <a href="#" className="item-author text-color" data-abc="true">{person.name}</a>
-                                    <div className="item-except text-muted text-sm h-1x">For what reason would it be advisable for me to think about business content?</div>
-                                </div>
-                                <div className="no-wrap">
-                                    <div className="item-date text-muted text-sm d-none d-md-block">21 July</div>
-                                </div>
-
+                                    </div>
+                                    <div className="flex ml-2"> 
+                                        <p href="#" className="item-author text-color lead" >{person.name}</p>
+                                    </div>
+                                </Link>
                           </div> 
-                          </div>
+                        </div>
                        )
                        : <p className="text-primary justify-content-center align-items-center d-flex border border-ligth rounded" >
                             no results      
