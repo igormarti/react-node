@@ -21,7 +21,7 @@ class Profile extends Component {
     }
 
     componentDidMount(){
-        const userId = this.props.match.params.userId 
+        const userId = this.props.match.params.userId  
         this.init(userId)
     }
 

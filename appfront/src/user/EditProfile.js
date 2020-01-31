@@ -26,7 +26,6 @@ class EditProfile extends Component{
         const userId =  this.props.match.params.userId 
         this.userData = new FormData()
         userById(userId).then(data=>{
-            console.log(data)
             if(data.error){
                 this.setState({
                     redirectToProfile:true

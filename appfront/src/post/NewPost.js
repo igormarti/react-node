@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-// import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import {createPost} from '../services/post_service'
 import User from '../auth/auth'
 import Alert from '../alert/Alert'
 import Loading from "../loading/Loading";
-// import defaultUserPhoto from '../images/userdefault.jpg'
 
 class NewPost extends Component{
 
@@ -17,14 +16,14 @@ class NewPost extends Component{
             user:'',
             error:'',
             loading:false,
-            fileSize:0
+            fileSize:0,
+            redirectToProfile:false
         }
-
     }
 
     componentDidMount(){
         this.postData = new FormData()
-        this.setState({user:User().user._id})
+        this.setState({user:User().user})
     }
 
     handleChange = field => e =>{
@@ -46,7 +45,12 @@ class NewPost extends Component{
                         error:data.error
                     })
                 }else{
-                    console.log('New Post:',data)
+                    this.setState({
+                        redirectToProfile:true,
+                        photo:'',
+                        title:'',
+                        body:''
+                    })
                 }
             })
             
@@ -99,13 +103,10 @@ class NewPost extends Component{
 
     render(){
 
-        const {title,body,error,loading} = this.state
-
-        // if(redirectToProfile){
-        //     return <Redirect to={`/user/${id}`} />
-        // }
-
-        // const photoURL = id?photoUser(id,new Date().getTime()):defaultUserPhoto
+        const {title,body,error,loading,user,redirectToProfile} = this.state
+        if(redirectToProfile){
+            return <Redirect to={`/user/${user._id}`} />
+        }
 
         return(
 
@@ -119,13 +120,6 @@ class NewPost extends Component{
                 <div className="col-12 justify-content-center align-items-center d-flex" >
                     { (loading)?<Loading type="spokes" />:'' }   
                 </div> 
-                {/* <div className="col-md-4 offset-md-4 justify-content-center align-items-center d-flex mb-2" >
-                    <figure className="figure">
-                        <img src={photoURL} className="figure-img img-fluid rounded" alt={name}
-                        onError={i=> i.target.src = `${defaultUserPhoto}`}
-                        />
-                    </figure>
-                </div>      */}
 
                 <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">
                     {this.newPostForm(title,body)}
