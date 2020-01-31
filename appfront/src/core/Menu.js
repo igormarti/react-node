@@ -42,6 +42,12 @@ const Menu = ({history}) => (
                         >
                             Suggested People
                         </Link>
+
+                        <Link className="navbar-brand" style={{color:isActive(history,`/post/create`)}}
+                        to={`/post/create`} 
+                        >
+                            Create Post
+                        </Link>
                     </>
                 )
             }
