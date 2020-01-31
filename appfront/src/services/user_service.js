@@ -111,8 +111,7 @@ export const findPeople = (userId) => {
             'Content-Type':'application/json',
             'Accept':'application/json',
             'Authorization':`Bearer ${User().token}`
-        },
-        'body':JSON.stringify({userId})
+        }
     }).then(res => {return res.json()})
     .catch(err => console.log(err))
 }

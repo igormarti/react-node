@@ -57,7 +57,7 @@ exports.signout = (req,res)=>{
 }
 
 exports.userById = (req,res,next,id)=>{
-
+    
     User.findById(id)
     .populate('Following','_id name')
     .populate('Followers','_id name')
@@ -220,7 +220,6 @@ exports.findPeople = (req,res) => {
                 error: err
             });   
         }
-
         return res.json(users)
     }).select('name')
 }

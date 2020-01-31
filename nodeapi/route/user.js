@@ -26,9 +26,8 @@ router.post("/signup",createSingUpValidation,signup)
 router.post("/signin",createSingInValidation,signin)
 router.get("/signout",signout)
 
-
-router.get("/user/findpeople/:userId",Auth.HasPermission,findPeople)
 router.get("/users",allUsers)
+router.get("/user/findpeople/:userId",Auth.HasPermission,findPeople)
 router.get('/user/:userId',Auth.HasPermission ,getUser)
 router.put('/user/:userId',Auth.HasPermission,updateUser)
 router.delete('/user/:userId',Auth.HasPermission,deleteUser)
