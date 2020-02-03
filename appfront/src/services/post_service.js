@@ -18,3 +18,19 @@ export const createPost = (userId,post) => {
         console.log(err)
     })
 }
+
+export const getPosts = () => {
+    return fetch(`${URL_API}/`,
+            {
+            'method':'GET',
+            'headers':{
+                'Content-Type':'application/json',
+                'Accept':'application/json',
+                'Authorization':`Bearer ${User().token}`
+            }
+            }).then(res=>{
+                return res.json()
+            }).catch(err=>{
+                console.log(err)
+            })
+}
