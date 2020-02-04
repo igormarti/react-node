@@ -26,27 +26,41 @@ class Posts extends Component {
         })
     }
 
-    showPosts = posts => (
-        <div className="row">
+    showPosts = posts => {
+        return(
+            <div className="row">
             {
                 posts.map((post,i) => 
-                <div class="col-sm-4 col-lg-4 col-12 mb-3">
-                    <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">{post.title}</h5>
-                        <p class="card-text">{post.body}</p>
-                    </div>
-                    </div>
-                    <div>
-                        <ul className="card-footer p-0 list-group list-group-flush">
-                            <Link to={`/post/${post._id}`} className="btn btn-raised btn-primary float-right m-0">Read more</Link>
-                        </ul>
-                    </div>
-                </div>
-                )
+                {
+                    const posterId =  post.postedBy?`/user/${post.postedBy._id}`:''
+                    const posterName = post.postedBy?post.postedBy.name:"Unknown" 
+
+                    return(
+                        <div className="col-sm-4 col-lg-4 col-12 mb-3">
+                            <div className="card">
+                            <div className="card-body">
+                                <h5 className="card-title">{post.title}</h5>
+                                <p className="card-text">{post.body.substring(0,100)}</p>
+                                <p className='font-italic mark' >
+                                    Created by{" "}<Link to={posterId} >{posterName}</Link>{" "} 
+                                    on { new Date(post.created).toDateString()}
+                                </p>
+                            </div>
+                            </div>
+                            <div>
+                                <ul className="card-footer p-0 list-group list-group-flush">
+                                    <Link to={`/post/${post._id}`} className="btn btn-raised btn-primary float-right m-0">Read more</Link>
+                                </ul>
+                            </div>
+                        </div>
+                    )
+                })
             }
-        </div>
-    )
+            </div>
+        )
+    }
+       
+    
 
     render() {
         const {posts} = this.state
