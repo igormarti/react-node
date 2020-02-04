@@ -34,3 +34,8 @@ export const getPosts = () => {
                 console.log(err)
             })
 }
+
+export const photoPost = (postId,dateTime='') => {
+    const datetime = dateTime !== '' ? `?${dateTime}` : ''
+    return `${URL_API}/post/photo/${postId}${datetime}`
+}

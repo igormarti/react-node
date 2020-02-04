@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import {getPosts} from '../services/post_service'
-import {photoUser} from '../services/user_service'
+import {getPosts,photoPost} from '../services/post_service'
 import defaultUserPhoto from '../images/defaultUser.jpg'
 import {Link} from 'react-router-dom'
 
@@ -38,6 +37,21 @@ class Posts extends Component {
                     return(
                         <div className="col-sm-4 col-lg-4 col-12 mb-3">
                             <div className="card">
+                                
+                            <div 
+                             style={
+                                {
+                                backgroundImage: `url(${photoPost(post._id,new Date().getTime())})`, 
+                                backgroundPosition: 'center center',
+                                backgroundColor: '#333333',
+                                backgroundSize:'cover',
+                                backgroundRepeat: 'no-repeat',
+                                width:'100%',
+                                height:'200px'
+                                }
+                                }
+                            >
+                            </div>   
                             <div className="card-body">
                                 <h5 className="card-title">{post.title}</h5>
                                 <p className="card-text">{post.body.substring(0,100)}</p>
