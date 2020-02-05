@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {getPosts,photoPost} from '../services/post_service'
-import defaultUserPhoto from '../images/defaultUser.jpg'
+import defaultPost from '../images/defaultpost.png'
 import {Link} from 'react-router-dom'
 
 
@@ -41,7 +41,7 @@ class Posts extends Component {
                             <div 
                              style={
                                 {
-                                backgroundImage: `url(${photoPost(post._id,new Date().getTime())})`, 
+                                backgroundImage: `url(${photoPost(post._id,new Date().getTime())}),url(${defaultPost})`, 
                                 backgroundPosition: 'center center',
                                 backgroundColor: '#333333',
                                 backgroundSize:'cover',
