@@ -35,7 +35,7 @@ class Posts extends Component {
                     const posterName = post.postedBy?post.postedBy.name:"Unknown" 
 
                     return(
-                        <div className="col-sm-4 col-lg-4 col-12 mb-3">
+                        <div className="col-sm-4 col-lg-4 col-12 mb-3" key={i}>
                             <div className="card">
                                 
                             <div 
@@ -81,6 +81,7 @@ class Posts extends Component {
 
         return (
             <div>
+                <h2 className="mt-5 mb-5 ml-5" >{posts.length?'Recents Post':'Loading...'}</h2>
             {
                 this.showPosts(posts)
             }  

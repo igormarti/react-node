@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {singlePost,photoPost} from '../services/post_service'
 import defaultPost from '../images/defaultpost.png'
 import {Link} from 'react-router-dom'
+import Loading from '../loading/Loading'
 
 class SinglePost extends Component {
 
@@ -70,10 +71,24 @@ class SinglePost extends Component {
     const {post} = this.state
 
     return (
-      <div className="container col-12" >
-          <h2 className="mt-5 mb-5 ml-5" >{post.title}</h2>
-            {this.renderPost(post)}
-      </div>
+     
+        <div className="container col-12" >
+              {!post
+              ?(
+                <div className="col-md-6 col-lg-6 col-12 mt-5 offset-lg-5 offset-md-5 justify-content-center align-items-center">
+                    <Loading type="spokes" />
+                </div>
+              )
+              :(
+                <>
+                  <h2 className="mt-5 mb-5 ml-5" >{post.title}</h2>
+                  {this.renderPost(post)}
+                </>
+              )
+             }
+              
+           
+        </div>
     )
   }
 }

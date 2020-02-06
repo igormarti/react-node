@@ -42,8 +42,9 @@ class EditProfile extends Component{
     }
 
     handleChange = field => e =>{
-        const value = field==='photo'?e.target.files[0]:e.target.value
+        let value = field==='photo'?e.target.files[0]:e.target.value
         const fileSize = field==='photo'?e.target.files[0].size:0
+        value = field==='password'?value||undefined:value
         this.setState({[field]:value,error:"",fileSize})
         this.userData.set(field,value)
     }
@@ -87,7 +88,6 @@ class EditProfile extends Component{
             this.setState({error:'Email valid is required'})
             return false
         }
-
         if(password.length >= 1 && password.length < 6){
             this.setState({error:'Password must be at least 6 characters long'})
             return false 

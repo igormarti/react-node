@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import User from '../auth/auth'
 import {Redirect,Link} from 'react-router-dom'
 import {userById,photoUser} from '../services/user_service'
+import {postByUser} from '../services/post_service'
 import defaultUserPhoto from '../images/userdefault.jpg'
 import Delete from './Delete'
 import FollowProfileButton from './FollowProfileButton'
@@ -16,7 +17,8 @@ class Profile extends Component {
             user:{Following:[],Followers:[]},
             redirectTosignIn:false,
             following:false,
-            error:''
+            error:'',
+            posts:[],
         }
     }
 
@@ -30,6 +32,18 @@ class Profile extends Component {
         this.init(userId)
     }
 
+    loadPostUser = userId => {
+        postByUser(userId).then(data => {
+            if(data.error){
+               this.setState({error:data.error})     
+            }else{
+               this.setState({
+                   posts:data
+               })
+            }
+        })
+    }
+
     init = userId => {
         userById(userId).then(data=>{
             if(data.error){
@@ -37,6 +51,7 @@ class Profile extends Component {
                     redirectTosignIn:true
                 })
             }else{
+                this.loadPostUser(data._id)
                 let following = this.checkFollow(data)
                 this.setState({
                     user:data,
@@ -70,7 +85,7 @@ class Profile extends Component {
 
     render(){
 
-        const {redirectTosignIn,user} = this.state
+        const {redirectTosignIn,user,posts} = this.state
 
         if(redirectTosignIn){
             return <Redirect to='/signin' />
@@ -93,7 +108,7 @@ class Profile extends Component {
                       
                             <div className="card-body">
                                 <h3 className='text-dark' >About</h3>
-                                <p className="card-text text-dark">.
+                                <p className="card-text text-dark">
                                     {user.about || `Hello, I'm ${user.name}`}
                                 </p>
                             </div>
@@ -133,7 +148,7 @@ class Profile extends Component {
                 </div>
             
                 <hr/>
-                <ProfileTabs followers={user.Followers} following={user.Following} />
+                <ProfileTabs followers={user.Followers} following={user.Following}  posts={posts} />
             </div>    
         )
     }

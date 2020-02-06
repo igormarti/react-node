@@ -8,8 +8,7 @@ class ProfileTabs extends Component {
 
   render() {
 
-    const {followers,following} = this.props
-    console.log(following);
+    const {followers,following,posts} = this.props
     
     return (
 
@@ -79,6 +78,23 @@ class ProfileTabs extends Component {
                        
                     }
                     
+
+            </div>
+
+
+            <div className="col-sm-6 col-lg-4">
+
+            <h5 className="text-primary" >Posts</h5>
+
+                {
+                    posts.length > 0?
+                    (<div>{JSON.stringify(posts)}</div>)
+                : <p className="text-primary justify-content-center align-items-center d-flex border border-ligth rounded" >
+                        no results      
+                  </p>
+                
+                }
+    
 
             </div>
 

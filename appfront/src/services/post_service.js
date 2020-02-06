@@ -51,6 +51,22 @@ export const singlePost = (postId) => {
             })
 }
 
+export const postByUser = (userId) => {
+    return fetch(`${URL_API}/posts/by/${userId}`,
+            {
+            'method':'GET',
+            'headers':{
+                'Content-Type':'application/json',
+                'Accept':'application/json',
+                'Authorization':`Bearer ${User().token}`
+            }
+            }).then(res=>{
+                return res.json()
+            }).catch(err=>{
+                console.log(err)
+            })
+}
+
 export const photoPost = (postId,dateTime='') => {
     const datetime = dateTime !== '' ? `?${dateTime}` : ''
     return `${URL_API}/post/photo/${postId}${datetime}`
