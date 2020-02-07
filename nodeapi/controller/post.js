@@ -37,6 +37,7 @@ exports.getPostsByUser = (req,res) => {
 
     Post.find({postedBy:req.profile._id})
     .populate('postedBy','_id name')
+    .sort({created:-1})
     .exec((err,posts)=>{
         if(err){
             return res.status(401).json({
