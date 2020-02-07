@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {singlePost,photoPost} from '../services/post_service'
+import Auth from '../auth/auth'
 import defaultPost from '../images/defaultpost.png'
 import {Link} from 'react-router-dom'
 import Loading from '../loading/Loading'
@@ -55,13 +56,26 @@ class SinglePost extends Component {
                         Created by{" "}<Link to={posterId} >{posterName}</Link>{" "} 
                         on { new Date(post.created).toDateString()}
                     </p>
+                    <div className='row'>
+                    <div className="col-lg-4" >
+                      <Link to='/' className="btn btn-raised btn-primary col-12">Back to Home</Link>
+                    </div>
+                    {
+                     Auth().user && Auth().user._id === post.postedBy._id && ( 
+                       <>
+                        <div className="col-lg-4" >
+                          <button className="btn btn-raised btn-warning col-12" >Update</button>
+                        </div>
+                        <div className="col-lg-4" >
+                          <button className="btn btn-raised btn-danger col-12" >Delete</button>
+                        </div>
+                      </>      
+                     )
+                    }
                 </div>
                 </div>
-                <div>
-                    <ul className="card-footer p-0 list-group list-group-flush">
-                        <Link to='/' className="btn btn-raised btn-primary float-right m-0">Back to Home</Link>
-                    </ul>
                 </div>
+                
         </div>
       )
   }
