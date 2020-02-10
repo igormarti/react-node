@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {singlePost,photoPost} from '../services/post_service'
+import {singlePost,photoPost,removePost} from '../services/post_service'
 import Auth from '../auth/auth'
 import defaultPost from '../images/defaultpost.png'
-import {Link} from 'react-router-dom'
+import {Link,Redirect} from 'react-router-dom'
 import Loading from '../loading/Loading'
 
 class SinglePost extends Component {
@@ -10,7 +10,9 @@ class SinglePost extends Component {
   constructor(){
       super()
       this.state = {
-          post:''
+          post:'',
+          redirectToHome:false,
+          erro:''
       }
   } 
   
@@ -23,6 +25,30 @@ class SinglePost extends Component {
             this.setState({post:data})
          }
     })
+  }
+
+  confirmDelete = () => {
+      let answer = window.confirm('You are sure want to delete your post?')
+
+      if(answer){
+        this.deletePost()
+      }
+  }
+
+  deletePost = () => {
+
+     const postId = this.props.match.params.postId
+
+     removePost(postId).then(data => {
+
+        if(data.error){
+            this.setState({error:data.error})
+        }else{
+            this.setState({redirectToHome:true})
+        }
+
+     })
+
   }
 
 
@@ -67,7 +93,7 @@ class SinglePost extends Component {
                           <button className="btn btn-raised btn-warning col-12" >Update</button>
                         </div>
                         <div className="col-lg-4" >
-                          <button className="btn btn-raised btn-danger col-12" >Delete</button>
+                          <button onClick={this.confirmDelete} className="btn btn-raised btn-danger col-12" >Delete</button>
                         </div>
                       </>      
                      )
@@ -82,7 +108,11 @@ class SinglePost extends Component {
 
   render() {
 
-    const {post} = this.state
+    const {post,redirectToHome} = this.state
+
+    if(redirectToHome){
+      return <Redirect to={'/'} />
+    }
 
     return (
      
