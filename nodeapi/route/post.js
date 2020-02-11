@@ -5,7 +5,7 @@ const router = express.Router()
 const {createPostValidation} = require('../validator/post')
 const {HasPermission,hasAuthorizationPost} = require('../middleware/auth')
 
-router.get("/",HasPermission,getPosts)
+router.get("/",getPosts)
 router.post("/posts/new/:userId", HasPermission,createPosts,createPostValidation)
 router.get("/posts/by/:userId", HasPermission,getPostsByUser)
 router.get("/post/:postId", HasPermission,singlePost)

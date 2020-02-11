@@ -26,7 +26,7 @@ export const getPosts = () => {
             'headers':{
                 'Content-Type':'application/json',
                 'Accept':'application/json',
-                'Authorization':`Bearer ${User().token}`
+                // 'Authorization':`Bearer ${User().token}`
             }
             }).then(res=>{
                 return res.json()

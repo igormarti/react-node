@@ -90,7 +90,9 @@ class SinglePost extends Component {
                      Auth().user && Auth().user._id === post.postedBy._id && ( 
                        <>
                         <div className="col-lg-4" >
-                          <button className="btn btn-raised btn-warning col-12" >Update</button>
+                          <Link to={`/post/edit/${post._id}`} className="btn btn-raised btn-warning col-12" >
+                            Update
+                          </Link>
                         </div>
                         <div className="col-lg-4" >
                           <button onClick={this.confirmDelete} className="btn btn-raised btn-danger col-12" >Delete</button>
