@@ -64,9 +64,8 @@ class PostEdit extends Component {
             }else{
                 this.setState({
                     redirectToPost:true,
-                    photo:'',
-                    title:'',
-                    body:''
+                    title:data.title,
+                    body:data.body
                 })
             }
         })
@@ -111,7 +110,7 @@ class PostEdit extends Component {
               <textarea value={body} onChange={this.handleChange('body')} className="form-control" />   
           </div>
           <div className="justify-content-center align-items-center d-flex">
-              <button  onClick={this.submitForm} className="btn btn-raised btn-primary btn-lg" >
+              <button onClick={this.submitForm} className="btn btn-raised btn-primary btn-lg" >
                   Update Post
               </button>
           </div>
