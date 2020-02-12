@@ -83,6 +83,23 @@ export const removePost = (postId) => {
             })
 }
 
+export const updatePost = (postId,post) => {
+    return fetch(`${URL_API}/post/${postId}`,
+        {
+            'method':'PUT',
+            'headers':{
+                'Accept':'application/json',
+                'Authorization':`Bearer ${User().token}`
+            },
+            'body':post
+        }
+    ).then(res => {
+        return res.json()
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
 export const photoPost = (postId,dateTime='') => {
     const datetime = dateTime !== '' ? `?${dateTime}` : ''
     return `${URL_API}/post/photo/${postId}${datetime}`
