@@ -54,7 +54,7 @@ class Posts extends Component {
                             </div>   
                             <div className="card-body">
                                 <h5 className="card-title">{post.title}</h5>
-                                <p className="card-text">{post.body.substring(0,100)}</p>
+                                <p className="card-text">{post.body.substring(0,30)}{post.body.length>30?` ...`:``}</p>
                                 <p className='font-italic mark' >
                                     Created by{" "}<Link to={posterId} >{posterName}</Link>{" "} 
                                     on { new Date(post.created).toDateString()}

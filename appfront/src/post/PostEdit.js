@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import {singlePost,updatePost} from '../services/post_service'
+import {Redirect} from 'react-router-dom'
+import {singlePost,updatePost,photoPost} from '../services/post_service'
 import Alert from '../alert/Alert'
 import Loading from '../loading/Loading'
+import defaultPost from '../images/defaultpost.png'
 
 class PostEdit extends Component {
 
@@ -12,7 +14,7 @@ class PostEdit extends Component {
        title:'',
        body:'',
        error:'',
-       redirectToProfile:false,
+       redirectToPost:false,
        loading:false
      }
   }
@@ -61,7 +63,7 @@ class PostEdit extends Component {
                 })
             }else{
                 this.setState({
-                    redirectToProfile:true,
+                    redirectToPost:true,
                     photo:'',
                     title:'',
                     body:''
@@ -75,7 +77,7 @@ class PostEdit extends Component {
 
   isValid(){
       const {title,body,fileSize} = this.state
-      
+
       if(title.length === 0){
           this.setState({error:'Title is required'})
           return false
@@ -95,7 +97,7 @@ class PostEdit extends Component {
   }
 
   updatePostForm = (title,body) => (
-      <form>
+      <form className="mt-5" >
           <div className="form-group">
               <label className="text-muted" >Photo</label>
               <input accept="image/*" type="file" onChange={this.handleChange('photo')} className="form-control" ></input>
@@ -119,7 +121,11 @@ class PostEdit extends Component {
 
   render() {
 
-    const {title,body,error,loading} = this.state
+    const {id,title,body,error,loading,redirectToPost} = this.state
+
+    if(redirectToPost){
+        return <Redirect to={`/post/${id}`} />
+    }
 
     return (
         <div className="container col-12" >
@@ -133,8 +139,25 @@ class PostEdit extends Component {
             <div className="col-12 justify-content-center align-items-center d-flex" >
                 { (loading)?<Loading type="spokes" />:'' }   
             </div> 
+            
 
             <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">
+                <div 
+                    style={
+                        {
+                        backgroundImage: `url(${photoPost(id,new Date().getTime())}),url(${defaultPost})`, 
+                        backgroundPosition: 'center center',
+                        backgroundColor: '#333333',
+                        backgroundSize:'cover',
+                        backgroundRepeat: 'no-repeat',
+                        width:'100%',
+                        height:'200px',
+                        borderRadius:'3px',
+                        border:'3px solid #4F4F4F'
+                        }
+                        }
+                ></div>
+                
                 {this.updatePostForm(title,body)}
             </div> 
        </div>

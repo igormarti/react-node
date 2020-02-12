@@ -126,7 +126,7 @@ exports.updatePost = (req,res,next) => {
                         error: err
                     });
                 }
-                return res.status(200).json(user)
+                return res.status(200).json(post)
             })
     })
 }
