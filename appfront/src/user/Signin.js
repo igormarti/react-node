@@ -76,7 +76,7 @@ export default class Signin extends Component {
             <div className="container col-lg-12" >
 
                  <div className="col-12" >
-                     <h2 className="mt-5 mb-5 justify-content-center align-items-center d-flex" >SignIn</h2>
+                     <h2 className="mt-5 mb-5 justify-content-center align-items-center d-flex" >Sign In</h2>
                 </div>    
 
                 <div className="col-12 justify-content-center align-items-center d-flex" >

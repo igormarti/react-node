@@ -21,6 +21,11 @@ const Menu = ({history}) => (
                 <Link className="navbar-brand" to="/users" style={{color:isActive(history,'/users')}} >
                     Users
                 </Link>
+                <Link className="navbar-brand" style={{color:isActive(history,`/post/create`)}}
+                        to={`/post/create`} 
+                        >
+                            Create Post
+                </Link>
             {
                 !isAuthenticated() && (
                     <>
@@ -41,12 +46,6 @@ const Menu = ({history}) => (
                         to={`/findpeople`} 
                         >
                             Suggested People
-                        </Link>
-
-                        <Link className="navbar-brand" style={{color:isActive(history,`/post/create`)}}
-                        to={`/post/create`} 
-                        >
-                            Create Post
                         </Link>
                     </>
                 )

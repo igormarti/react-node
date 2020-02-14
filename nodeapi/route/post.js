@@ -1,11 +1,18 @@
 const express = require('express')
-const {getPosts,createPosts,getPostsByUser,postById,deletePost,updatePost,singlePost,photo} = require('../controller/post')
+const {
+    getPosts,createPosts,getPostsByUser,postById,deletePost,updatePost,singlePost,like,unLike,photo
+} = require('../controller/post')
 const {userById} = require('../controller/user')
 const router = express.Router()
 const {createPostValidation} = require('../validator/post')
 const {HasPermission,hasAuthorizationPost} = require('../middleware/auth')
 
 router.get("/",getPosts)
+
+//like and unlike
+router.put('/post/like',HasPermission,like)
+router.put('/post/unlike',HasPermission,unLike)
+
 router.post("/posts/new/:userId", HasPermission,createPosts,createPostValidation)
 router.get("/posts/by/:userId", HasPermission,getPostsByUser)
 router.get("/post/:postId", HasPermission,singlePost)
