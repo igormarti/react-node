@@ -100,6 +100,40 @@ export const updatePost = (postId,post) => {
     })
 }
 
+export const like = (postId,userId) => {
+    return fetch(`${URL_API}/post/like`,
+        {
+            'method':'PUT',
+            'headers':{
+                'Accept':'application/json',
+                'Authorization':`Bearer ${User().token}`
+            },
+            'body':JSON.stringify({postId,userId})
+        }
+    ).then(res => {
+        return res.json()
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+export const unLike = (postId,userId) => {
+    return fetch(`${URL_API}/post/unlike`,
+        {
+            'method':'PUT',
+            'headers':{
+                'Accept':'application/json',
+                'Authorization':`Bearer ${User().token}`
+            },
+            'body':JSON.stringify({postId,userId})
+        }
+    ).then(res => {
+        return res.json()
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
 export const photoPost = (postId,dateTime='') => {
     const datetime = dateTime !== '' ? `?${dateTime}` : ''
     return `${URL_API}/post/photo/${postId}${datetime}`
