@@ -106,6 +106,7 @@ export const like = (postId,userId) => {
             'method':'PUT',
             'headers':{
                 'Accept':'application/json',
+                "Content-Type": "application/json",
                 'Authorization':`Bearer ${User().token}`
             },
             'body':JSON.stringify({postId,userId})
@@ -123,6 +124,7 @@ export const unLike = (postId,userId) => {
             'method':'PUT',
             'headers':{
                 'Accept':'application/json',
+                "Content-Type": "application/json",
                 'Authorization':`Bearer ${User().token}`
             },
             'body':JSON.stringify({postId,userId})
