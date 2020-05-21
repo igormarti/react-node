@@ -79,8 +79,8 @@ class Users extends Component {
                     <div>
                         <div className="card-footer">
                             <div className="row">
-                                <Link to={`/user/${user._id}`} className="btn btn-raised btn-primary col-5 ml-3">View Profile</Link>
-                                <button onClick={()=>this.followUser(user,i)} className="btn btn-raised btn-info col-5 ml-3" >
+                                <Link to={`/user/${user._id}`} className="btn btn-raised btn-primary col-12">View Profile</Link>
+                                <button onClick={()=>this.followUser(user,i)} className="btn btn-raised btn-info col-12" >
                                     Follow
                                 </button>
                             </div>   

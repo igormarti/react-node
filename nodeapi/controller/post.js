@@ -136,11 +136,9 @@ exports.singlePost = (req,res) => {
 }
 
 exports.like = (req,res) => {
-
     Post.findByIdAndUpdate(req.body.postId,
     {$push:{Likes:req.body.userId}},
     {new:true}).exec((err,result) => {
-
         if(err){
             return res.status(400).json({error:err})
         }else{
