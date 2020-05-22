@@ -9,6 +9,8 @@ exports.postById = (req,res,next,postId) => {
 
     Post.findById(postId)
     .populate('postedBy','_id name')
+    .populate('Comments','text created')
+    .populate('Comments.PostedBy','_id name')
     .exec((err,post)=>{
         if(err || !post){
             return res.status(400).json({
@@ -25,6 +27,8 @@ exports.getPosts = (req,res) => {
 
     Post.find().
     populate('postedBy','_id name').
+    populate('Comments','text created').
+    populate('Comments.PostedBy','_id name').
     select('_id title body created Likes')
     .sort({'created':-1})
     .then(posts=>{
@@ -163,4 +167,34 @@ exports.unLike = (req,res) => {
 exports.photo = (req,res,next) => {
     res.set('Content-Type',req.post.photo.contentType)
     return res.send(req.post.photo.data)
+}
+
+exports.comment = (req,res) => {
+    let comment = req.body.comment
+    comment.postedBy = req.body.userId
+    Post.findByIdAndUpdate(req.body.postId,{$push:{Comments:comment}},{new:true})
+    .populate('Comments.PostedBy','_id name')
+    .populate('PostedBy','_id name')
+    .exec((err,result)=>{
+        if(err){
+            return res.status(400).json({error:err})
+        }else{
+            return res.status(200).json(result)
+        }
+    })
+}
+
+exports.unComment = (req,res) => {
+    let comment = req.body.comment
+
+    Post.findByIdAndUpdate(req.body.postId,{$pull:{Comments:comment.id}},{new:true})
+    .populate('Comments.PostedBy','_id name')
+    .populate('PostedBy','_id name')
+    .exec((err,result)=>{
+        if(err){
+            return res.status(400).json({error:err})
+        }else{
+            return res.status(200).json(result)
+        }
+    })
 }

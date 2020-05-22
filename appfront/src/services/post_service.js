@@ -136,6 +136,42 @@ export const unLike = (postId,userId) => {
     })
 }
 
+export const comment = (postId,userId,comment) => {
+    return fetch(`${URL_API}/post/comment`,
+        {
+            'method':'PUT',
+            'headers':{
+                'Accept':'application/json',
+                "Content-Type": "application/json",
+                'Authorization':`Bearer ${User().token}`
+            },
+            'body':JSON.stringify({postId,userId,comment})
+        }
+    ).then(res => {
+        return res.json()
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
+export const unComment = (postId,userId,comment) => {
+    return fetch(`${URL_API}/post/uncomment`,
+        {
+            'method':'PUT',
+            'headers':{
+                'Accept':'application/json',
+                "Content-Type": "application/json",
+                'Authorization':`Bearer ${User().token}`
+            },
+            'body':JSON.stringify({postId,userId,comment}),
+        }
+    ).then(res => {
+        return res.json()
+    }).catch(err => {
+        console.log(err)
+    })
+}
+
 export const photoPost = (postId,dateTime='') => {
     const datetime = dateTime !== '' ? `?${dateTime}` : ''
     return `${URL_API}/post/photo/${postId}${datetime}`

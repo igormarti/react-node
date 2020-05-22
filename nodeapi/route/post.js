@@ -1,6 +1,8 @@
 const express = require('express')
 const {
-    getPosts,createPosts,getPostsByUser,postById,deletePost,updatePost,singlePost,like,unLike,photo
+    getPosts,createPosts,getPostsByUser,postById,
+    deletePost,updatePost,singlePost,
+    comment,unComment,like,unLike,photo
 } = require('../controller/post')
 const {userById} = require('../controller/user')
 const router = express.Router()
@@ -12,6 +14,8 @@ router.get("/",getPosts)
 //like and unlike
 router.put('/post/like',HasPermission,like)
 router.put('/post/unlike',HasPermission,unLike)
+router.put('/post/comment',HasPermission,comment)
+router.put('/post/uncomment',HasPermission,unComment)
 
 router.post("/posts/new/:userId", HasPermission,createPosts,createPostValidation)
 router.get("/posts/by/:userId", HasPermission,getPostsByUser)

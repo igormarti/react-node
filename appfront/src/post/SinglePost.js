@@ -4,6 +4,7 @@ import Auth from '../auth/auth'
 import defaultPost from '../images/defaultpost.png'
 import {Link,Redirect} from 'react-router-dom'
 import Loading from '../loading/Loading'
+import Comment from  './Comment'
 
 class SinglePost extends Component {
 
@@ -184,12 +185,12 @@ class SinglePost extends Component {
                 <>
                   <h2 className="mt-5 mb-5 ml-5" >{post.title}</h2>
                   {this.renderPost(post)}
+                  <Comment/>
                 </>
               )
              }
               
-           
-        </div>
+        </div>       
     )
   }
 }
