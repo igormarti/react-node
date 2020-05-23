@@ -16,7 +16,8 @@ class SinglePost extends Component {
           redirectSignIn:false,
           erro:'',
           like:false,
-          likes:0
+          likes:0,
+          comments:[]
       }
   } 
 
@@ -36,7 +37,8 @@ class SinglePost extends Component {
             this.setState({
               post:data,
               likes:data.Likes.length,
-              like: this.checkLike(data.Likes)
+              like: this.checkLike(data.Likes),
+              comments:data.Comments
             })
          }
     })
@@ -162,9 +164,13 @@ class SinglePost extends Component {
       )
   }
 
+  updateComments = comments => {
+    this.setState({comments})
+  }
+
   render() {
 
-    const {post,redirectToHome,redirectSignIn} = this.state
+    const {post,redirectToHome,redirectSignIn,comments} = this.state
 
     if(redirectToHome){
       return <Redirect to={'/'} />
@@ -185,7 +191,7 @@ class SinglePost extends Component {
                 <>
                   <h2 className="mt-5 mb-5 ml-5" >{post.title}</h2>
                   {this.renderPost(post)}
-                  <Comment/>
+                  <Comment postId={post._id} comments={comments} updateComments={this.updateComments} />
                 </>
               )
              }

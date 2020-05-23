@@ -9,8 +9,8 @@ exports.postById = (req,res,next,postId) => {
 
     Post.findById(postId)
     .populate('postedBy','_id name')
-    .populate('Comments','text created')
-    .populate('Comments.PostedBy','_id name')
+    .populate('Comments.postedBy','_id name')
+    .populate('PostedBy','_id name')
     .exec((err,post)=>{
         if(err || !post){
             return res.status(400).json({

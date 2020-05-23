@@ -136,7 +136,7 @@ export const unLike = (postId,userId) => {
     })
 }
 
-export const comment = (postId,userId,comment) => {
+export const commentPost = (postId,userId,comment) => {
     return fetch(`${URL_API}/post/comment`,
         {
             'method':'PUT',
@@ -154,7 +154,7 @@ export const comment = (postId,userId,comment) => {
     })
 }
 
-export const unComment = (postId,userId,comment) => {
+export const unCommentPost = (postId,userId,comment) => {
     return fetch(`${URL_API}/post/uncomment`,
         {
             'method':'PUT',
