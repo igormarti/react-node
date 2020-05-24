@@ -98,7 +98,7 @@ class SinglePost extends Component {
     const {likes,like} =  this.state;
         
       return(
-        <div className="col-md-6 col-lg-6 col-12 mb-3 offset-lg-3 offset-md-3 justify-content-center align-items-center">
+        <div className="col-md-8 col-lg-8 col-12 mb-3">
                 <div className="card">
                     
                 <div 
@@ -110,7 +110,7 @@ class SinglePost extends Component {
                     backgroundSize:'cover',
                     backgroundRepeat: 'no-repeat',
                     width:'100%',
-                    height:'200px'
+                    height:'30rem'
                     }
                     }
                 >
@@ -190,8 +190,10 @@ class SinglePost extends Component {
               :(
                 <>
                   <h2 className="mt-5 mb-5 ml-5" >{post.title}</h2>
-                  {this.renderPost(post)}
-                  <Comment postId={post._id} comments={comments} updateComments={this.updateComments} />
+                  <div className="row mb-5" >
+                    {this.renderPost(post)}
+                    <Comment postId={post._id} comments={comments} updateComments={this.updateComments} />
+                  </div>
                 </>
               )
              }

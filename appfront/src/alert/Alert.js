@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Alert = ({message,type='success'}) => (
-    <div className={`alert alert-${type} col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center`}  >
+const Alert = ({message,type='success',lg='6',offset_lg=3,md='6',sm='12'}) => (
+    <div className={`alert alert-${type} col-lg-${lg} col-md-${md} col-sm-${sm} offset-lg-${offset_lg} justify-content-center align-items-center mt-1`}  >
         {message}
     </div>
 )

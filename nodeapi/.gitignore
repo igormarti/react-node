@@ -90,3 +90,5 @@ typings/
 
 # File log
 access.log
+.env
+sendgrid.env

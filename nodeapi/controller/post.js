@@ -10,7 +10,6 @@ exports.postById = (req,res,next,postId) => {
     Post.findById(postId)
     .populate('postedBy','_id name')
     .populate('Comments.postedBy','_id name')
-    .populate('PostedBy','_id name')
     .exec((err,post)=>{
         if(err || !post){
             return res.status(400).json({
@@ -173,8 +172,8 @@ exports.comment = (req,res) => {
     let comment = req.body.comment
     comment.postedBy = req.body.userId
     Post.findByIdAndUpdate(req.body.postId,{$push:{Comments:comment}},{new:true})
-    .populate('Comments.PostedBy','_id name')
-    .populate('PostedBy','_id name')
+    .populate('Comments.postedBy','_id name')
+    .populate('postedBy','_id name')
     .exec((err,result)=>{
         if(err){
             return res.status(400).json({error:err})
@@ -187,9 +186,9 @@ exports.comment = (req,res) => {
 exports.unComment = (req,res) => {
     let comment = req.body.comment
 
-    Post.findByIdAndUpdate(req.body.postId,{$pull:{Comments:comment.id}},{new:true})
-    .populate('Comments.PostedBy','_id name')
-    .populate('PostedBy','_id name')
+    Post.findByIdAndUpdate(req.body.postId,{$pull:{Comments:{_id:comment._id}}},{new:true})
+    .populate('Comments.postedBy','_id name')
+    .populate('postedBy','_id name')
     .exec((err,result)=>{
         if(err){
             return res.status(400).json({error:err})

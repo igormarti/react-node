@@ -35,6 +35,10 @@ const userSchema = new moongoose.Schema({
     },
     updated_at:{
         type:Date
+    },
+    resetPasswordLink: {
+        type: String,
+        default: ""
     }
 })
 
