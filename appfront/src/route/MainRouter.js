@@ -8,6 +8,8 @@ import Profile from '../user/Profile';
 import Users from '../user/Users';
 import EditProfile from '../user/EditProfile'
 import FindPeople from '../user/FindPeople'
+import ForgetPassword from '../user/ForgetPassword'
+import RecoveryPassword from '../user/RecoveryPassword'
 import NewPost from '../post/NewPost'
 import SinglePost from '../post/SinglePost'
 import PostEdit from '../post/PostEdit'
@@ -21,6 +23,8 @@ const MainRouter = () => (
             <Route path='/signup' component={Signup} />
             <Route path='/signin' component={Signin} />
             <Route  path='/users' component={Users} />
+            <Route  path='/forgetpassword' component={ForgetPassword} />
+            <Route  path='/reset-password/:token' component={RecoveryPassword} />
             <PrivateRoute  path='/findpeople' component={FindPeople} />
             <PrivateRoute exact  path='/user/:userId' component={Profile} />
             <PrivateRoute  path='/user/edit/:userId' component={EditProfile} />

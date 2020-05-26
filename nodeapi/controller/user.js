@@ -227,9 +227,9 @@ exports.findPeople = (req,res) => {
 
 exports.forgotPassword = (req, res) => {
     
-    if (!req.body) return res.status(400).json({ message: "No request body" });
+    if (!req.body) return res.status(400).json({ error: "Enter your email" });
     if (!req.body.email)
-        return res.status(400).json({ message: "No Email in request body" });
+        return res.status(400).json({ error: "Enter your email" });
  
     const { email } = req.body;
     // find the user based on email
@@ -260,7 +260,7 @@ exports.forgotPassword = (req, res) => {
  
         return user.updateOne({ resetPasswordLink: token }, (err, success) => {
             if (err) {
-                return res.json({ message: err });
+                return res.json({ error: err });
             } else {
                 sendGrid.sendMail(emailData,options={typeTemplate:1})
                 return res.status(200).json({

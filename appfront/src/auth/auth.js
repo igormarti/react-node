@@ -66,3 +66,26 @@ export const signUp = (user) => {
              })
  }
 
+ export const sendNewPassword = (email) => {
+    return fetch(`${api_url}/forgot-password`,{
+        'method':'PUT',
+        'headers':{
+            'Content-Type':'application/json',
+            'Accept':'application/json'
+        },
+        'body':JSON.stringify({email})
+    }).then(res => {return res.json()})
+    .catch(err => console.log(err))
+}
+
+export const recoveryPassword = (body) => {
+    return fetch(`${api_url}/reset-password`,{
+        'method':'PUT',
+        'headers':{
+            'Content-Type':'application/json',
+            'Accept':'application/json'
+        },
+        'body':JSON.stringify(body)
+    }).then(res => {return res.json()})
+    .catch(err => console.log(err))
+}

@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
 import Alert from '../alert/Alert'
-import {Redirect,Link} from 'react-router-dom'
 import Loading from '../loading/Loading'
-import {authenticate,singIn} from '../auth/auth'
+import {sendNewPassword} from '../auth/auth'
 
-export default class Signin extends Component {
+export default class ForgetPassword extends Component {
 
     constructor(props){
         super(props)
         this.state = {
             email:"",
-            password:"",
             error:"",
-            redirectToRefer:false,
+            success:"",
             loading:false
         }
     }
@@ -27,61 +25,44 @@ export default class Signin extends Component {
 
         e.preventDefault()
 
-        const {email,password} = this.state
+        const {email} = this.state
 
-        const user = {email,password}
-
-        singIn(user).then((data)=>{
-
+        sendNewPassword(email).then(data => {
+          
             if(data.error){
-                this.setState({error:data.error,loading:false})
-            }else{
-                //Authenticate
-                authenticate(data,() => {
-                    this.setState({redirectToRefer:true})
-                })
+                this.setState({error:data.error,success:'',loading:false,})
+                return false;
             }
 
+            this.setState({success:data.message,error:'',loading:false,email:''})
         })
 
     }
 
-    signInForm = (email,password) => (
+    sendEmailForm = (email) => (
         <form>
             <div className="form-group">
                 <label className="text-muted" >Email</label>
                 <input type="email" value={email} onChange={this.handleChange('email')} className="form-control" ></input>
-            </div>
-            <div className="form-group">
-                <label className="text-muted" >Password</label>
-                <input type="password" value={password} onChange={this.handleChange('password')} className="form-control" ></input>
+                <small className="text-nowrap font-weight-bold"  >enter your account email address to have your new password sent.</small>
             </div>
             <div className="justify-content-center align-items-center d-flex">
                 <button  onClick={this.submitForm} className="btn btn-raised btn-primary btn-lg" >
-                    Sing In
+                    Send email
                 </button>
-            </div>
-            <div className="justify-content-center align-items-center d-flex mt-5">
-                <Link to={`/forgetpassword`} >
-                    I forgot the password 
-                </Link>
             </div>
         </form>
     )
 
     render(){
 
-        const {email,password,error,redirectToRefer,loading} = this.state
-
-        if(redirectToRefer){
-            return <Redirect to="/" />
-        }
+        const {email,error,success,loading} = this.state
 
         return(
             <div className="container col-lg-12" >
 
                  <div className="col-12" >
-                     <h2 className="mt-5 mb-5 justify-content-center align-items-center d-flex" >Sign In</h2>
+                     <h2 className="mt-5 mb-5 justify-content-center align-items-center d-flex" >Send me the new password</h2>
                 </div>    
 
                 <div className="col-12 justify-content-center align-items-center d-flex" >
@@ -92,8 +73,12 @@ export default class Signin extends Component {
                  error?(<Alert message={error} type="danger" />):''
                 }
 
+                {
+                 success?(<Alert message={success} type="success" />):''
+                }
+
                 <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">
-                    {this.signInForm(email,password)}
+                    {this.sendEmailForm(email)}
                 </div>
 
             </div>
