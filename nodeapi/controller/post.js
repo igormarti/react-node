@@ -8,7 +8,7 @@ const _ = require('lodash')
 exports.postById = (req,res,next,postId) => {
 
     Post.findById(postId)
-    .populate('postedBy','_id name')
+    .populate('postedBy','_id name role')
     .populate('Comments.postedBy','_id name')
     .exec((err,post)=>{
         if(err || !post){
@@ -39,7 +39,7 @@ exports.getPosts = (req,res) => {
 exports.getPostsByUser = (req,res) => {
 
     Post.find({postedBy:req.profile._id})
-    .populate('postedBy','_id name')
+    .populate('postedBy','_id name role')
     .sort({created:-1})
     .exec((err,posts)=>{
         if(err){

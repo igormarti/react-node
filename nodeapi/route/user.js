@@ -16,6 +16,7 @@ const {
         ,findPeople
         ,forgotPassword
         ,resetPassword
+        ,socialLogin
     } = require('../controller/user')
 const Auth = require('../middleware/auth')
 const router = express.Router()
@@ -29,6 +30,8 @@ router.post("/signin",createSingInValidation,signin)
 router.get("/signout",signout)
 router.put("/forgot-password", forgotPassword);
 router.put("/reset-password", passwordResetValidator, resetPassword);
+// then use this route for social login
+router.post("/social-login", socialLogin); 
 
 router.get("/users",allUsers)
 router.get("/user/findpeople/:userId",Auth.HasPermission,findPeople)

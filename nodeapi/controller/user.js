@@ -35,15 +35,15 @@ exports.signin = (req,res)=>{
         }
         //Credentials match
         //Generate the token with user id and secret
-        const token = jwt.sign({_id:user._id},process.env.JWT_SECRET) 
+        const token = jwt.sign({_id:user._id,role:user.role},process.env.JWT_SECRET) 
         //Store token in cookie 
         res.cookie("t",token,{expire: new Date() + 9999})
         //Destruturing user
-        const {_id,name,created_at} = user
+        const {_id,name,created_at,role} = user
         //Returning user informations
         return res.status(200).json({
             token,
-            user:{_id,name,email,created_at}
+            user:{_id,name,email,created_at,role}
         })
     })
 }
@@ -304,3 +304,40 @@ exports.resetPassword = (req, res) => {
     });
 
 }
+
+exports.socialLogin = (req, res) => {
+    // try signup by finding user with req.email
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if (err || !user) {
+            // create a new user and login
+            user = new User(req.body);
+            req.profile = user;
+            user.save();
+            // generate a token with user id and secret
+            const token = jwt.sign(
+                { _id: user._id, iss: "NODEAPI" },
+                process.env.JWT_SECRET
+            );
+            res.cookie("t", token, { expire: new Date() + 9999 });
+            // return response with user and token to frontend client
+            const { _id, name, email } = user;
+            return res.json({ token, user: { _id, name, email } });
+        } else {
+            // update existing user with new social info and login
+            req.profile = user;
+            delete req.body.password
+            user = _.extend(user, req.body);
+            user.updated = Date.now();
+            user.save();
+            // generate a token with user id and secret
+            const token = jwt.sign(
+                { _id: user._id, iss: "NODEAPI" },
+                process.env.JWT_SECRET
+            );
+            res.cookie("t", token, { expire: new Date() + 9999 });
+            // return response with user and token to frontend client
+            const { _id, name, email } = user;
+            return res.json({ token, user: { _id, name, email } });
+        }
+    });
+};

@@ -39,6 +39,10 @@ const userSchema = new moongoose.Schema({
     resetPasswordLink: {
         type: String,
         default: ""
+    },
+    role:{
+        type:String,
+        default:"subscriber"
     }
 })
 

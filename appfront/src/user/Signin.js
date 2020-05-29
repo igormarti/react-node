@@ -3,6 +3,7 @@ import Alert from '../alert/Alert'
 import {Redirect,Link} from 'react-router-dom'
 import Loading from '../loading/Loading'
 import {authenticate,singIn} from '../auth/auth'
+import SocialLogin from './SocialLogin'
 
 export default class Signin extends Component {
 
@@ -48,6 +49,9 @@ export default class Signin extends Component {
 
     signInForm = (email,password) => (
         <form>
+             <div className="justify-content-center align-items-center d-flex mt-3 mb-3">
+                <SocialLogin/>
+            </div>
             <div className="form-group">
                 <label className="text-muted" >Email</label>
                 <input type="email" value={email} onChange={this.handleChange('email')} className="form-control" ></input>

@@ -16,8 +16,9 @@ exports.hasAuthorizationUser = (req,res,next)=>{
 }
 
 exports.hasAuthorizationPost = (req,res,next)=>{
-    const authorized = req.post && req.auth && req.post.postedBy._id.toString() === req.auth._id.toString()
-    if(!authorized){
+    const authorizedUser = req.post && req.auth && req.post.postedBy._id.toString() === req.auth._id.toString()
+    const authorizedAdmin = req.post && req.auth && req.auth.role === 'admin'
+    if(!authorizedUser && !authorizedAdmin){
         return res.status(403).json({error:'User not authorized to perform actions'})
     }
 
