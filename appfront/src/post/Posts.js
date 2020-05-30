@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {getPosts,photoPost} from '../services/post_service'
+import {photoPost,list} from '../services/post_service'
 import defaultPost from '../images/defaultpost.png'
 import {Link} from 'react-router-dom'
 
@@ -9,23 +9,40 @@ class Posts extends Component {
     constructor(props){
         super(props)
         this.state = {
-            posts:[]
+            posts:[],
+            page:1,
+            totPages:0
         }
     }
 
     componentDidMount(){
-        getPosts().then(data=>{
-            if(data.error){
-                console.log(data.error)
-            }else{
-                this.setState({
-                    posts:data
-                })
-            }
-        })
+        this.loadPosts(this.state.page);
     }
 
-    showPosts = posts => {
+    loadMore = number => {
+        this.setState({ page: this.state.page + number });
+        this.loadPosts(this.state.page + number);
+    };
+ 
+    loadLess = number => {
+        this.setState({ page: this.state.page - number });
+        this.loadPosts(this.state.page - number);
+    };
+
+    loadPosts = page => {
+        list(page).then(data => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                this.setState({posts: data.posts,totPages:data.totPages});
+            }
+        });
+    };
+
+    showPosts = (posts) => {
+
+        const {totPages,page} =  this.state
+
         return(
             <div className="row">
             {
@@ -70,6 +87,32 @@ class Posts extends Component {
                     )
                 })
             }
+
+
+                <div className="col-12">
+                    {page > 1 ? (
+                    <button
+                        className="btn btn-raised btn-warning mr-5 mt-5 mb-5"
+                        onClick={() => this.loadLess(1)}
+                    >
+                        Previous - {page-1}
+                    </button>
+                ) : (
+                    ""
+                )}
+ 
+                {posts.length && (page < totPages)? (
+                    <button
+                        className="btn btn-raised btn-success mt-5 mb-5"
+                        onClick={() => this.loadMore(1)}
+                    >
+                        Next - {page+1}
+                    </button>
+                ) : (
+                    ""
+                )}
+                </div>
+
             </div>
         )
     }

@@ -124,7 +124,7 @@ class Profile extends Component {
                     </div>
 
                     {
-                        User().user && User().user._id === user._id ? (
+                        User().user && User().user._id === user._id ||User().user.role==='admin' ? (
                             <div className='row justify-content-center mb-5'>
                                     <div className="col-5 col-md-4 col-lg-3">
                                         <Link className='btn btn-raised btn-success btn-sm' to={`/user/edit/${user._id}`}>

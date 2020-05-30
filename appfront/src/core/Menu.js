@@ -68,6 +68,18 @@ const Menu = ({history}) => (
                 )
         
             }
+
+            {isAuthenticated() && isAuthenticated().user.role === "admin" && (
+                <>
+                    <Link
+                        to={`/admin`}
+                        style={{color:isActive(history, `/admin`)}}
+                        className="navbar-brand"
+                    >
+                        Admin
+                    </Link>
+                </>
+            )}
         </div>
         </nav>
     </div>

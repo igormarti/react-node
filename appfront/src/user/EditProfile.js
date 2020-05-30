@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import {userById,updateUser,updateUserLocal,photoUser} from '../services/user_service'
+import auth from '../auth/auth'
 import Alert from '../alert/Alert'
 import Loading from "../loading/Loading";
 import defaultUserPhoto from '../images/userdefault.jpg'
@@ -58,6 +59,10 @@ class EditProfile extends Component{
                     this.setState({
                         error:data.error
                     })
+                }else if(auth().user.role==='admin'){
+                    this.setState({
+                        redirectToProfile:true
+                    })  
                 }else{
                     updateUserLocal(data,()=>{
                         this.setState({
@@ -157,7 +162,12 @@ class EditProfile extends Component{
                 </div>     
 
                 <div className="col-lg-6 col-md-12 col-sm-12 offset-lg-3 justify-content-center align-items-center">
-                    {this.updateUserForm(name,email,password,about)}
+                    {/* {this.updateUserForm(name,email,password,about)} */}
+                    {auth().user.role === "admin" &&
+                    this.updateUserForm(name, email, password, about)}
+
+                    {auth().user._id === id &&
+                    this.updateUserForm(name, email, password, about)}
                 </div>
             </div>
         )

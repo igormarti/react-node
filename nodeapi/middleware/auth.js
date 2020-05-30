@@ -1,5 +1,4 @@
 const expressJwt = require('express-jwt')
-const User = require('../models/user')
 
 exports.HasPermission = expressJwt({
     secret: process.env.JWT_SECRET,
@@ -7,8 +6,9 @@ exports.HasPermission = expressJwt({
 })
 
 exports.hasAuthorizationUser = (req,res,next)=>{
-    const authorized = req.profile === req.auth && req.profile.id === req.auth._id
-    if(!authorized){
+    const authorized = req.profile === req.auth && req.profile.id.toString() === req.auth._id.toString()
+    const authorizedAdmin = req.profile && req.auth && req.auth.role.toString() === 'admin'
+    if(!authorized && !authorizedAdmin){
         return res.status(403).json({error:'User not authorized to perform actions'})
     }
 
@@ -17,7 +17,7 @@ exports.hasAuthorizationUser = (req,res,next)=>{
 
 exports.hasAuthorizationPost = (req,res,next)=>{
     const authorizedUser = req.post && req.auth && req.post.postedBy._id.toString() === req.auth._id.toString()
-    const authorizedAdmin = req.post && req.auth && req.auth.role === 'admin'
+    const authorizedAdmin = req.post && req.auth && req.auth.role.toString() === 'admin'
     if(!authorizedUser && !authorizedAdmin){
         return res.status(403).json({error:'User not authorized to perform actions'})
     }

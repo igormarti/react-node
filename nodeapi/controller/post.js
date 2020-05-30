@@ -22,17 +22,30 @@ exports.postById = (req,res,next,postId) => {
     })
 }
 
-exports.getPosts = (req,res) => {
+exports.getPosts = async (req,res) => {
+
+    const currentPage = req.query.page || 1
+    const perPage =  parseInt(req.query.perpage) || 6
+
+    const total = await Post.find().countDocuments();
 
     Post.find().
+    skip((currentPage-1)*perPage).
     populate('postedBy','_id name').
     populate('Comments','text created').
-    populate('Comments.PostedBy','_id name').
-    select('_id title body created Likes')
+    populate('Comments.PostedBy','_id name')
+    .select('_id title body created Likes')
     .sort({'created':-1})
-    .then(posts=>{
-            res.status(200).json(posts)
-    }).catch(err=>{console.log(`Occourred a error:${err}`)})
+    .limit(perPage)
+    .exec((err,posts)=>{
+       if(err){
+        return res.status(401).json({error:err})
+       }
+        return res.status(200).json({
+            posts:posts,
+            totPages:Math.ceil(total/perPage)
+        })
+    })
 
 }  
 

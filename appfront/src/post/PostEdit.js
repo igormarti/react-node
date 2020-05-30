@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import {singlePost,updatePost,photoPost} from '../services/post_service'
+import auth from '../auth/auth'
 import Alert from '../alert/Alert'
 import Loading from '../loading/Loading'
 import defaultPost from '../images/defaultpost.png'
@@ -63,6 +64,7 @@ class PostEdit extends Component {
                 })
             }else{
                 this.setState({
+                    id: data.postedBy._id,
                     redirectToPost:true,
                     title:data.title,
                     body:data.body
@@ -157,7 +159,12 @@ class PostEdit extends Component {
                         }
                 ></div>
                 
-                {this.updatePostForm(title,body)}
+                {/* {this.updatePostForm(title,body)} */}
+                {auth().user.role === "admin" &&
+                    this.updatePostForm(title, body)}
+
+                {auth().user._id === id &&
+                    this.updatePostForm(title, body)}
             </div> 
        </div>
     )

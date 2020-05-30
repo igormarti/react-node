@@ -172,6 +172,20 @@ export const unCommentPost = (postId,userId,comment) => {
     })
 }
 
+export const list = (page,perpage=3) => {
+    return fetch(`${URL_API}/?page=${page}&perpage=${perpage}`, {
+        method: "GET",
+        'headers':{
+            'Content-Type':'application/json',
+            'Accept':'application/json'
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
 export const photoPost = (postId,dateTime='') => {
     const datetime = dateTime !== '' ? `?${dateTime}` : ''
     return `${URL_API}/post/photo/${postId}${datetime}`

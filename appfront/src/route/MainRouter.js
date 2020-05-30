@@ -13,6 +13,7 @@ import RecoveryPassword from '../user/RecoveryPassword'
 import NewPost from '../post/NewPost'
 import SinglePost from '../post/SinglePost'
 import PostEdit from '../post/PostEdit'
+import Admin from '../admin/Admin'
 import PrivateRoute from '../auth/PrivateRoute'
 
 const MainRouter = () => (
@@ -31,6 +32,7 @@ const MainRouter = () => (
             <PrivateRoute  path='/post/create' component={NewPost} />
             <PrivateRoute exact path='/post/:postId' component={SinglePost} />
             <PrivateRoute  path='/post/edit/:postId' component={PostEdit} />
+            <PrivateRoute exact path="/admin" component={Admin} />
         </Switch>
     </div>
 )

@@ -36,8 +36,8 @@ router.post("/social-login", socialLogin);
 router.get("/users",allUsers)
 router.get("/user/findpeople/:userId",Auth.HasPermission,findPeople)
 router.get('/user/:userId',Auth.HasPermission ,getUser)
-router.put('/user/:userId',Auth.HasPermission,updateUser)
-router.delete('/user/:userId',Auth.HasPermission,deleteUser)
+router.put('/user/:userId',Auth.HasPermission,Auth.hasAuthorizationUser,updateUser)
+router.delete('/user/:userId',Auth.HasPermission,Auth.hasAuthorizationUser,deleteUser)
 router.get('/user/photo/:userId',photoUser)
 
 //Router for user params
