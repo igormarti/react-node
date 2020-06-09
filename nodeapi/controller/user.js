@@ -4,7 +4,8 @@ const jwt = require('jsonwebtoken')
 const _ = require('lodash')
 const formidable = require('formidable')
 const fs = require('fs')
-const sendGrid = require('../helpers/email')
+//const sendGrid = require('../helpers/email')
+const nodeMail = require('../helpers/nodemail')
 
 exports.signup = async (req,res)=>{
     const userExist = await User.findOne({email:req.body.email})
@@ -262,7 +263,7 @@ exports.forgotPassword = (req, res) => {
             if (err) {
                 return res.json({ error: err });
             } else {
-                sendGrid.sendMail(emailData,options={typeTemplate:1})
+                nodeMail.sendMail(emailData,options={typeTemplate:1})
                 return res.status(200).json({
                     message: `Email has been sent to ${email}. Follow the instructions to reset your password.`
                 });

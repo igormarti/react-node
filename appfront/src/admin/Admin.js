@@ -40,7 +40,7 @@ class Admin extends Component {
             if(data.error){
                 console.log(data.error)
             }else{
-                this.setState({posts:data})
+                this.setState({posts:data.posts})
             }
         })
     }
@@ -139,7 +139,8 @@ class Admin extends Component {
     render() {
 
         const {users,posts,isLogged} = this.state
-
+        console.log(users)
+        console.log(posts)
         if(!isLogged){
             return <Redirect to='/signin' />
         }
