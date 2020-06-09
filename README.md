@@ -34,3 +34,13 @@ For the project to work perfectly on your machine, you need to configure all the
   <li>NODE_MAIL_PASS=Your email server password.</li>
   <li>NODE_MAIL_FROM=Your email server standard sender.</li>
 </ul>
+
+# Running projects
+
+<h4>Running back-end project</h4>
+
+Run the following command at the root of the nodeapi folder: <b>npm run up</b>
+
+<h4>Running front-end project</h4>
+
+Run the following command at the root of the appfront folder: <b>npm start</b>
