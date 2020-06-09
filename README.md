@@ -3,7 +3,11 @@ This project is a social network with basic features, but my wish is to add new 
 
 # Requirements
 <ul>
-  <li>1</li>
-  <li>2</li>
+  <li>NPM >= 10.0.3</li>
+  <li>MongoDB</li>
 <ul>  
+  
+# Usage Tips
+After cloning or downloading the project it is necessary to install the dependencies with the command: <b> npm install </b>, 
+
 
