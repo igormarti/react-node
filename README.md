@@ -20,3 +20,17 @@ For the project to work perfectly on your machine, you need to configure all the
   <li>REACT_APP_API_URL=Server url</li>
   <li>REACT_APP_ID_CLIENT_GOOGLE=Google customer ID, this key allows login by Google</li>
 </ul>
+
+<h4>Environment variables of the nodeapi project</h4>
+<ul>
+  <li>MONGO_URI=MongoDB database URI</li>
+  <li>MONGO_URILOCAL=Local URI of the MongoDB database, this URI is being used in the local project.</li>
+  <li>PORT=Project door.</li>
+  <li>JWT_SECRET=Project secret key.</li>
+  <li>CLIENT_URL=Client project URL.</li>
+  <li>NODE_MAIL_HOST=Your email server host.</li>
+  <li>NODE_MAIL_PORT=Your email server port.</li>
+  <li>NODE_MAIL_USER=Your email server user.</li>
+  <li>NODE_MAIL_PASS=Your email server password.</li>
+  <li>NODE_MAIL_FROM=Your email server standard sender.</li>
+</ul>
