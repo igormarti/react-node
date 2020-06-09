@@ -4,7 +4,7 @@ This project is a social network with basic features, but my wish is to add new 
 # Requirements
 <div>
 <ul>
-  <li>NPM >= 10.0.3</li>
+  <li>NPM >= <b>10.0.3</b></li>
   <li>MongoDB</li>
 <ul/> 
 </div>  
