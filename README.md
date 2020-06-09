@@ -8,6 +8,7 @@ This project is a social network with basic features, but my wish is to add new 
 <ul>  
   
 # Usage Tips
-After cloning or downloading the project it is necessary to install the dependencies with the command: <b> npm install </b>, 
+After cloning or downloading the project it is necessary to install the dependencies with the command: <b> npm install </b>, this command must be executed at the root of both projects, that is, in the folders: appfront and nodeapi.
 
-
+# Configuration of environment variables
+For the project to work perfectly on your machine, you need to configure all the environment variables, for that you need to create an .env file based on the .env-example file, in this file you will need to fill in all the variables, below is listed all variables along with their descriptions:
