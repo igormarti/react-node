@@ -3,7 +3,7 @@ This project is a social network with basic features, but my wish is to add new 
 
 # Requirements
 <ul>
-  <li>1<li>
-  <li>2<li>
+  <li>1</li>
+  <li>2</li>
 <ul>  
 
