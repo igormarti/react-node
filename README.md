@@ -15,8 +15,8 @@ After cloning or downloading the project it is necessary to install the dependen
 # Configuration of environment variables
 For the project to work perfectly on your machine, you need to configure all the environment variables, for that you need to create an .env file based on the .env_example file, in this file you will need to fill in all the variables, below is listed all variables along with their descriptions:
 
-<h6>Environment variables of the appfront project</h6>
+<h4>Environment variables of the appfront project</h4>
 <ul>
-  <li>REACT_APP_API_URL=<Server url></li>
-  <li>REACT_APP_ID_CLIENT_GOOGLE=<Google customer ID, this key allows login by Google></li>
+  <li>REACT_APP_API_URL=Server url</li>
+  <li>REACT_APP_ID_CLIENT_GOOGLE=Google customer ID, this key allows login by Google</li>
 </ul>
