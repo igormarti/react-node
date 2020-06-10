@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import {singlePost,photoPost,removePost, unLike,like} from '../services/post_service'
+import {singlePost,photoPost,removePost} from '../services/post_service'
 import Auth from '../auth/auth'
 import defaultPost from '../images/defaultpost.png'
 import {Link,Redirect} from 'react-router-dom'
 import Loading from '../loading/Loading'
 import Comment from  './Comment'
+import Like from './Like'
 
 class SinglePost extends Component {
 
@@ -15,18 +16,9 @@ class SinglePost extends Component {
           redirectToHome:false,
           redirectSignIn:false,
           erro:'',
-          like:false,
-          likes:0,
           comments:[]
       }
   } 
-
-
-  checkLike = (likes) => {
-      const userId =  Auth() && Auth().user._id
-      let match = likes.indexOf(userId) !== -1
-      return match;
-  }
   
   componentDidMount(){
     const postId = this.props.match.params.postId  
@@ -36,8 +28,6 @@ class SinglePost extends Component {
          }else{
             this.setState({
               post:data,
-              likes:data.Likes.length,
-              like: this.checkLike(data.Likes),
               comments:data.Comments
             })
          }
@@ -68,35 +58,11 @@ class SinglePost extends Component {
 
   }
 
-  likeToggle = () => {
-
-    if(!Auth()){
-      this.setState({redirectSignIn:true})
-      return false
-    }
-
-    let callApi =  this.state.like?unLike:like
-    const postId = this.state.post._id
-    const userId = Auth().user._id
-     callApi(postId,userId).then(data => {
-          if(data.error){
-            console.log(data.error)
-          }else{
-            this.setState({
-              like:!this.state.like,
-              likes:data.Likes.length
-            })
-          }
-    })
-  }
-
-
   renderPost = (post) => {
 
     const posterId =  post.postedBy?`/user/${post.postedBy._id}`:''
     const posterName = post.postedBy?post.postedBy.name:"Unknown" 
-    const {likes,like} =  this.state;
-        
+ 
       return(
         <div className="col-md-8 col-lg-8 col-12 mb-3">
                 <div className="card">
@@ -115,22 +81,7 @@ class SinglePost extends Component {
                     }
                 >
                 </div>   
-                {
-                  like?(
-                    <h6 className="mt-3 ml-3" onClick={this.likeToggle}>
-                      {likes} Like
-                      <i  className="fa fa-thumbs-up text-dark bg-success ml-2" style={{padding:'10px',borderRadius:'50%'}} ></i>
-                    </h6>
-                  )
-                  :
-                  (
-                      <h6 className="mt-3 ml-3" onClick={this.likeToggle}>
-                        {likes} Like
-                        <i  className="fa fa-thumbs-up text-light bg-dark ml-2" style={{padding:'10px',borderRadius:'50%'}} > </i>
-                      </h6>
-                  )
-                }
-               
+              <Like postId={post._id} />
                 <div className="card-body">
                     <h5 className="card-title">{post.title}</h5>
                     <p className="card-text">{post.body}</p>

@@ -129,8 +129,8 @@ class Comment extends Component {
                                     {
                                         Auth().user && Auth().user._id === comment.postedBy._id && ( 
                                         <>
-                                            <div className="col-12" >
-                                                <i  onClick={()=>{this.confirmDelete(comment)}}  className="fa fa-trash text-success mr-1" style={{padding:'10px',borderRadius:'50%'}} > </i>
+                                            <div >
+                                                <i  onClick={()=>{this.confirmDelete(comment)}}  className="fa fa-trash text-success mr-1" style={{borderRadius:'50%'}} > </i>
                                             </div>
                                         </>      
                                         )
