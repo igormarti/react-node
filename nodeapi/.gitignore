@@ -73,9 +73,12 @@ typings/
 # next.js build output
 .next
 
+<<<<<<< HEAD
 # nuxt.js build output
 .nuxt
 
+=======
+>>>>>>> 6167ba6a7563e62da6e56f1eb53769ac55b21f33
 # vuepress build output
 .vuepress/dist
 

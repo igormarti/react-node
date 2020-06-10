@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "up": "NODE_ENV=pro nodemon app.js",
     "dev": "NODE_ENV=dev nodemon app.js",
-    "dev_win": "SET NODE_ENV=dev && nodemon app.js"
+    "dev_win": "SET NODE_ENV=dev && nodemon app.js",
+    "start": "node app.js"
   },
   "author": "Igor Martins",
   "license": "ISC",

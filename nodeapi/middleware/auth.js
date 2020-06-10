@@ -6,9 +6,13 @@ exports.HasPermission = expressJwt({
 })
 
 exports.hasAuthorizationUser = (req,res,next)=>{
-    const authorized = req.profile === req.auth && req.profile.id.toString() === req.auth._id.toString()
+ 
+    const authorized = req.profile && req.auth && req.profile.id.toString() === req.auth._id.toString()
     const authorizedAdmin = req.profile && req.auth && req.auth.role.toString() === 'admin'
-    if(!authorized && !authorizedAdmin){
+    console.log(req.profile.id)
+    console.log(req.auth._id)
+    console.log(authorized)
+    if(!authorized&&!authorizedAdmin){
         return res.status(403).json({error:'User not authorized to perform actions'})
     }
 

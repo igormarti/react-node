@@ -45,7 +45,7 @@ class EditProfile extends Component{
     handleChange = field => e =>{
         let value = field==='photo'?e.target.files[0]:e.target.value
         const fileSize = field==='photo'?e.target.files[0].size:0
-        value = field==='password'?value||undefined:value
+        value = field==='password'?value||'':value
         this.setState({[field]:value,error:"",fileSize})
         this.userData.set(field,value)
     }
@@ -102,7 +102,7 @@ class EditProfile extends Component{
     }
 
     updateUserForm = (name,email,password,about) => (
-        <form>
+        <form autoComplete="off">
             <div className="form-group">
                 <label className="text-muted" >Profile Photo</label>
                 <input accept="image/*" type="file" onChange={this.handleChange('photo')} className="form-control" ></input>
@@ -113,7 +113,7 @@ class EditProfile extends Component{
             </div>
             <div className="form-group">
                 <label className="text-muted" >Email</label>
-                <input type="email" value={email} onChange={this.handleChange('email')} className="form-control" ></input>
+                <input type="email" autoComplete="username" value={email} onChange={this.handleChange('email')} className="form-control" ></input>
             </div>
             <div className="form-group">
                 <label className="text-muted" >About</label>
@@ -121,7 +121,7 @@ class EditProfile extends Component{
             </div>
             <div className="form-group">
                 <label className="text-muted" >Password</label>
-                <input type="password" value={password} onChange={this.handleChange('password')} className="form-control" ></input>
+                <input autoComplete="new-password" type="password" value={password} onChange={this.handleChange('password')} className="form-control" ></input>
             </div>
             <div className="justify-content-center align-items-center d-flex">
                 <button  onClick={this.submitForm} className="btn btn-raised btn-primary btn-lg" >

@@ -14,7 +14,7 @@ const cors = require('cors')
 //config dotenv
 dotenv.config({path:(process.env.NODE_ENV==="dev")?".env.dev":".env"})
 //connecting db mogoose
-mongoose.connect(process.env.MONGO_URILOCAL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => { console.log('DB connected succefully') })
 //verify if has error in connect with db
 mongoose.connection.on('error', err => {
