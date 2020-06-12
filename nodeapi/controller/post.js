@@ -210,3 +210,16 @@ exports.unComment = (req,res) => {
         }
     })
 }
+
+exports.likeByPost = (req,res) => {
+    const {_id} =  req.post
+    Post.findById({_id})
+    .select('Likes').exec((err,result)=>{
+        if(err){
+            return res.status(400).json({error:err})
+        }else{
+            return res.status(200).json(result)
+        }
+    })
+    
+}

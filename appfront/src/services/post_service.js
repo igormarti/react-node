@@ -186,6 +186,21 @@ export const list = (page,perpage=3) => {
     .catch(err => console.log(err));
 };
 
+export const likeByPost = postId => {
+    return fetch(`${URL_API}/post/likes/${postId}`, {
+        method: "GET",
+        'headers':{
+            'Content-Type':'application/json',
+            'Accept':'application/json',
+            'Authorization':`Bearer ${User().token}`
+        }
+    })
+    .then(response => {
+        return response.json();
+    })
+    .catch(err => console.log(err));
+};
+
 export const photoPost = (postId,dateTime='') => {
     const datetime = dateTime !== '' ? `?${dateTime}` : ''
     return `${URL_API}/post/photo/${postId}${datetime}`

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import {singlePost,unLike,like} from '../services/post_service'
+import {likeByPost,unLike,like} from '../services/post_service'
 import Auth from '../auth/auth'
-import defaultUserPhoto from '../images/userdefault.jpg'
-import Alert from '../alert/Alert'
 import {Redirect} from 'react-router-dom'
 
 class Like extends Component {
@@ -17,7 +15,7 @@ class Like extends Component {
 
     componentDidMount(){
       const postId = this.props.postId
-      singlePost(postId).then(data=>{
+      likeByPost(postId).then(data=>{
            if(data.error){
               console.log(data.error)
            }else{
