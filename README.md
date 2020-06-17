@@ -26,7 +26,7 @@ For the project to work perfectly on your machine, you need to configure all the
   <li>MONGO_URI=MongoDB database URI</li>
   <li>MONGO_URILOCAL=Local URI of the MongoDB database, this URI is being used in the local project.</li>
   <li>PORT=Project door.</li>
-  <li>JWT_SECRET=Project secret key.</li>
+  <li>JWT_SECRET=json web token  secret key.</li>
   <li>CLIENT_URL=Client project URL.</li>
   <li>NODE_MAIL_HOST=Your email server host.</li>
   <li>NODE_MAIL_PORT=Your email server port.</li>
